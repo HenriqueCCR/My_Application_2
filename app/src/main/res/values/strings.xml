@@ -3,4 +3,5 @@
     <string name="hello_string">Hello Android!</string>
     <string name="coinTossResult1">Heads!</string>
     <string name="coinTossResult2">Tails</string>
+    <string name="coinTossButtonText">Press me to flip a coin!</string>
 </resources>
