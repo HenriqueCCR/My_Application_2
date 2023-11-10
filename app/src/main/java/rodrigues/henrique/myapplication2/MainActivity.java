@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import java.util.Random;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    public Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i("Activity Lifecycle","onResume");
+        TextView coinTossView = findViewById(R.id.coinTossView);
+
+        String result = getCoinToss();
+
+        coinTossView.setText(result);
     }
 
     @Override
@@ -48,5 +56,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.i("Activity Lifecycle","onRestart");
+    }
+    private String getCoinToss(){
+        if(random.nextBoolean()){
+            return getString(R.string.coinTossResult1);
+        }
+        return getString(R.string.coinTossResult2);
     }
 }

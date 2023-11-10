@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rodrigues, Henrique - Work</string>
+    <string name="hello_string">Olá Android!</string>
+    <string name="coinTossResult1">Cabeca!</string>
+    <string name="coinTossResult2">Rabo!</string>
+</resources>
