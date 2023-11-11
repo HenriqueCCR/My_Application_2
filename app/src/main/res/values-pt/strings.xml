@@ -6,4 +6,7 @@
     <string name="coinTossResult2">Rabo!</string>
     <string name="coinTossButtonText">Clique aqui!</string>
     <string name="implicitButtonLabel">Abre URL</string>
+    <string name="openListButtonLabel">abre lista</string>
+    <string name="hello_blank_fragment">Olá blank fragment</string>
+    <string name="openListButton">Abre lista</string>
 </resources>

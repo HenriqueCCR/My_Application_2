@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     /**Called when user touches the button*/
     public void openCoinToss(View view){
         //Do something in response to button click
-        Intent openCoinTossIntent = new Intent(getApplicationContext(), CoinTossActivity.class); //Explicit intent because specified own Activity (CointTossActivity)
+        Intent openCoinTossIntent = new Intent(getApplicationContext(), CoinTossActivity.class); //Explicit intent because specified own Activity (CoinTossActivity)
         openCoinTossIntent.putExtra("ScriptureRef","Proverbs 6:6 MSG");
         startActivityForResult(openCoinTossIntent, REQUEST_DIALOG_RESPONSE);
     }
@@ -31,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         Intent openImplicitIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.biblegateway.com/")); //Implicit intent used to start activity in another App without specifying app component to start
         startActivity(openImplicitIntent);                                                                             //instead specifying action and providing some data to perform the action
     }                                                                                                                 //Example - opening URL with URL link
+
+    /** Called when the user touches the button */
+    public void openList(View view){
+        Intent openListIntent = new Intent(getApplicationContext(), ListActivity.class);
+        startActivity(openListIntent);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();

@@ -30,5 +30,12 @@
             android:layout_height="wrap_content"
             android:onClick="openURL"
             android:text="@string/implicitButtonLabel" />
+
+        <Button
+            android:id="@+id/openListButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openList"
+            android:text="@string/openListButton" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
