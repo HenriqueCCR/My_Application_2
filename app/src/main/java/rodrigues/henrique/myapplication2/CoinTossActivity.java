@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import java.util.Random;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CoinTossActivity extends AppCompatActivity {
     public Random random = new Random();
@@ -15,6 +16,12 @@ public class CoinTossActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_toss);
         Log.i("Activity Lifecycle","onCreate");
+
+        Bundle extras = getIntent().getExtras();
+        String name = extras.getString("ScriptureRef");
+        Toast.makeText(getApplicationContext(), //Toast is a little message that pops up when activated
+                "This is the extra string that we passed in: " + name,
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
