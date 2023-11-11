@@ -5,4 +5,5 @@
     <string name="coinTossResult1">Cabeca!</string>
     <string name="coinTossResult2">Rabo!</string>
     <string name="coinTossButtonText">Clique aqui!</string>
+    <string name="implicitButtonLabel">Abre URL</string>
 </resources>

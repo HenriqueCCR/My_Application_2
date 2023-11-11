@@ -20,7 +20,7 @@ public class CoinTossActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("Activity Lifecycle","onPause");
+        Log.i("Activity Lifecycle","onPause + Coin Toss Activity");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CoinTossActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("Activity Lifecycle","onResume");
+        Log.i("Activity Lifecycle","onResume + Coin Toss Activity");
         TextView coinTossView = findViewById(R.id.coinTossView);
 
         String result = getCoinToss();

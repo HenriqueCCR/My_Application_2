@@ -19,7 +19,16 @@
             android:id="@+id/coinTossButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
             android:onClick="openCoinToss"
             android:text="@string/coinTossButtonText" />
+
+        <Button
+            android:id="@+id/implicitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openURL"
+            android:text="@string/implicitButtonLabel" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

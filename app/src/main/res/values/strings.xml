@@ -4,4 +4,5 @@
     <string name="coinTossResult1">Heads!</string>
     <string name="coinTossResult2">Tails</string>
     <string name="coinTossButtonText">Press me to flip a coin!</string>
+    <string name="implicitButtonLabel">Open URL</string>
 </resources>
