@@ -10,46 +10,35 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.ArrayList;
 
 public class MyViewModel extends AndroidViewModel {
-    private MutableLiveData<ArrayList<Item>> mItems;
-    private MutableLiveData<Item> mSelectedItem;
+    private LiveData<ArrayList<Item>> mItems;
+    private LiveData<Item> mSelectedItem;
+    private ItemsRepository mItemRepository;
     private int mSelectedIndex;
 
     public MyViewModel(@NonNull Application pApplication) {
         super(pApplication);
-        getItems();
-    }
-
-    private void generateItems() {
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(new Item("First","Link1","15/11/23","BleepBloopBlurp1"));
-        items.add(new Item("Second","Link1","16/11/23","BleepBloopBlurp2"));
-        items.add(new Item("Third","Link1","17/11/23","BleepBloopBlurp3"));
-        items.add(new Item("Fourth","Link1","18/11/23","BleepBloopBlurp4"));
-        items.add(new Item("Fifth","Link1","19/11/23","BleepBloopBlurp5"));
-        mItems.setValue(items);
+        mItemRepository = ItemsRepository.getInstance(getApplication());
     }
 
     public LiveData<ArrayList<Item>> getItems(){
         if(mItems == null) {
-            mItems = new MutableLiveData<ArrayList<Item>>();
-            generateItems();
-            selectItem(0);
+            mItems = mItemRepository.getItems();
         }
         return mItems; // This Live data is "read only"
     }
 
+    public LiveData<Item> getItem(int pItemIndex){
+        return mItemRepository.getItem(pItemIndex);
+    }
+
     public void selectItem(int pIndex) {
-        mSelectedIndex = pIndex;
-        Item selectedItem = mItems.getValue().get(mSelectedIndex);
-        mSelectedItem = new MutableLiveData<Item>();
-        mSelectedItem.setValue(selectedItem);
+        if(pIndex != mSelectedIndex || mSelectedItem == null) {
+            mSelectedIndex = pIndex;
+            mSelectedItem = getItem(mSelectedIndex);
+        }
     }
 
     public LiveData<Item> getSelectedItem() {
-        if (mSelectedItem == null) {
-            mSelectedItem = new MutableLiveData<Item>();
-            selectItem(mSelectedIndex);
-        }
         return mSelectedItem;
     }
 }
