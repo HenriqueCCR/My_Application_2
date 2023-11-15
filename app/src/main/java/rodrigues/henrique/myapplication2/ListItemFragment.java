@@ -2,7 +2,10 @@ package rodrigues.henrique.myapplication2;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,12 +20,11 @@ import android.widget.TextView;
  */
 public class ListItemFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_INDEX = "index";
-
-    // TODO: Rename and change types of parameters
     private int mIndex;
+    private MyViewModel mViewModel;
+    private View mInflatedView;
     public int getShownIndex() {
         return mIndex;
     }
@@ -50,9 +52,13 @@ public class ListItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mIndex = getArguments().getInt(ARG_INDEX);
         }
+
+        mViewModel = new ViewModelProvider(getActivity()).get(MyViewModel.class);
+        mViewModel.selectItem(mIndex);
     }
 
     @Override
@@ -60,9 +66,18 @@ public class ListItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.i(this.getClass().getSimpleName() + "Observer", "onCreateView");
         // Inflate the layout for this fragment
-        View inflatedView = inflater.inflate(R.layout.fragment_list_item, container, false);
-        TextView text = (TextView)inflatedView.findViewById(R.id.listItemTextView);
-        text.setText(DummyData.DATA_CONTENT[mIndex]);
-        return inflatedView;
+        mInflatedView = inflater.inflate(R.layout.fragment_list_item,container,false);
+        // Create the observer which updates UI
+        final Observer<Item> itemObserver = new Observer<Item>(){
+            @Override
+            public void onChanged(@Nullable final Item item) {
+                TextView text = (TextView) mInflatedView.findViewById(R.id.listItemTextView);
+                text.setText(item.getDescription());
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer
+        mViewModel.getSelectedItem().observe(getViewLifecycleOwner(), itemObserver);
+        return mInflatedView;
     }
 }
