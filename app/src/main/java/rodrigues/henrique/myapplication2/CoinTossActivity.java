@@ -25,6 +25,18 @@ public class CoinTossActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), //Toast is a little message that pops up when activated
                 "This is the extra string that we passed in: " + name,
                 Toast.LENGTH_LONG).show();
+
+        int numberOfTosses = retrievePreviousTosses();
+        if(numberOfTosses == -1) {
+            numberOfTosses = 1;
+        }
+        else {
+            numberOfTosses++;
+        }
+        Toast.makeText(getApplicationContext(),
+                "The coin has been tossed: " + numberOfTosses + " times.",
+                Toast.LENGTH_LONG).show();
+        storePreviousTosses(numberOfTosses);
     }
 
     @Override
@@ -92,5 +104,16 @@ public class CoinTossActivity extends AppCompatActivity {
                 "numberOfTosses",
                 pNumberOfTosses);
         editor.commit();
+    }
+    private int retrievePreviousTosses() {
+        int previousTosses = 0;
+        SharedPreferences sharedPreferences =
+                this.getApplication().getSharedPreferences(
+                        "rodrigues.henrique.MyApplication2",
+                        Context.MODE_PRIVATE);
+        previousTosses = sharedPreferences.getInt(
+                "numberOfTosses",
+                -1);
+        return previousTosses;
     }
 }

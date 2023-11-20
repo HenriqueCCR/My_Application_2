@@ -1,7 +1,9 @@
 package rodrigues.henrique.myapplication2;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.lifecycle.LiveData;
@@ -20,6 +22,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class ItemsRepository {
@@ -149,5 +159,71 @@ public class ItemsRepository {
         });
         // Add the request to the RequestQueue.
         queue.add(imageRequest);
+    }
+    public void saveIndexLocally(JSONObject pIndexObject, String pFilename) {
+        ContextWrapper contextWrapper = new ContextWrapper(mApplicationContext);
+        OutputStreamWriter outputStreamWriter = null;
+        try {
+            outputStreamWriter = new OutputStreamWriter(
+                    contextWrapper.openFileOutput(pFilename,Context.MODE_PRIVATE));
+            outputStreamWriter.write(pIndexObject.toString());
+            outputStreamWriter.flush();
+            outputStreamWriter.close();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private LiveData<ArrayList<Item>> loadIndexlocally(String pFilename) {
+        JSONObject indexObject = null;
+        MutableLiveData<ArrayList<Item>> mutableItems = new MutableLiveData<ArrayList<Item>>();
+        try {
+            InputStream inputStream = mApplicationContext.openFileInput(pFilename);
+
+            if(inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while((receiveString = bufferedReader.readLine()) != null){
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                String builtString = stringBuilder.toString();
+                indexObject = new JSONObject(builtString);
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("JSONLoading","File not found: " + e.toString());
+        }
+        catch (IOException e) {
+            Log.e("JSONLoading","Can not read file: " + e.toString());
+        }
+        catch (JSONException e) {
+            Log.e("JSONLoading","json error: " + e.toString());
+        }
+        if(indexObject != null) {
+            ArrayList<Item> items = parseJSONResponse(indexObject);
+            mutableItems.setValue(items);
+        }
+        return mutableItems;
+    }
+    public void saveImageLocally(Bitmap pBitmap, String pFilename) {
+        ContextWrapper contextWrapper = new ContextWrapper(mApplicationContext);
+        File directory = contextWrapper.getDir("itemImages",Context.MODE_PRIVATE);
+        File file = new File(directory,pFilename);
+        if(!file.exists()) {
+            FileOutputStream fileOutputStream = null;
+            try {
+                fileOutputStream = new FileOutputStream(file);
+                pBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            }
+            catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
