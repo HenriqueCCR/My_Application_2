@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -71,6 +72,8 @@ public class ListItemFragment extends Fragment {
         final Observer<Item> itemObserver = new Observer<Item>(){
             @Override
             public void onChanged(@Nullable final Item item) {
+                ImageView image = (ImageView) mInflatedView.findViewById(R.id.imageView_image);
+                image.setImageBitmap(item.getImage());
                 TextView text = (TextView) mInflatedView.findViewById(R.id.listItemTextView);
                 text.setText(item.getDescription());
             }

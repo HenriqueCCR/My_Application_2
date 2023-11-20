@@ -1,6 +1,8 @@
 package rodrigues.henrique.myapplication2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -92,8 +95,9 @@ public class ItemsRepository {
         String link = pItemObject.getString("link");
         String date = pItemObject.getString("pubDate");
         String description = pItemObject.getString("description");
-
+        String image = pItemObject.getString("image");
         Item item = new Item(title,link,date,description);
+        item.setImageUrl(image);
 
         return item;
     }
@@ -111,11 +115,39 @@ public class ItemsRepository {
             MutableLiveData<Item> itemData = new MutableLiveData<>();
             Item item = items.get(pItemIndex);
             itemData.setValue(item);
+            loadImage(item.getImageUrl(), itemData);
 
             return itemData;
         });
 
         mSelectedItem = transformedItem;
         return mSelectedItem;
+    }
+
+    public void loadImage(String pUrl, MutableLiveData<Item> pItemData) {
+        RequestQueue queue = Volley.newRequestQueue(mApplicationContext);
+        final MutableLiveData<Item> mutableItem = pItemData;
+
+        ImageRequest imageRequest = new ImageRequest(
+                pUrl, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                //do something with the image;
+                Item item = mutableItem.getValue();
+                item.setImage(bitmap);
+                mutableItem.setValue(item);
+            }
+        },
+        0,0,
+        ImageView.ScaleType.CENTER_CROP,
+        Bitmap.Config.RGB_565,
+        new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errorResponse = "That didn't work!";
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(imageRequest);
     }
 }
