@@ -3,10 +3,13 @@ package rodrigues.henrique.myapplication2;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
@@ -24,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,11 +40,13 @@ public class ItemsRepository {
     private static ItemsRepository sItemsRepository;
     private Context mApplicationContext;
 
-    private LiveData<ArrayList<Item>> mItems;
+    //private LiveData<ArrayList<Item>> mItems;
+    private MediatorLiveData<ArrayList<Item>> mItems;
     private LiveData<Item> mSelectedItem;
 
     private ItemsRepository(Context pApplicationContext) {
         this.mApplicationContext = pApplicationContext;
+        mItems = new MediatorLiveData<>();
     }
 
     public static ItemsRepository getInstance(Context pApplicationContext) {
@@ -66,7 +72,7 @@ public class ItemsRepository {
 
                         ArrayList<Item> items = parseJSONResponse(response);
                         mutableItems.setValue(items);
-                        mItems = mutableItems;
+                        //mItems = mutableItems;
                     }
                 },
                 new Response.ErrorListener() {
@@ -113,9 +119,11 @@ public class ItemsRepository {
     }
 
     public LiveData<ArrayList<Item>> getItems(){
-        if(mItems == null) {
-            mItems = loadItemsFromJSON();
-        }
+        LiveData<ArrayList<Item>> remoteData = loadItemsFromJSON();
+        LiveData<ArrayList<Item>> localData = loadIndexLocally("index.json");
+        mItems.addSource(remoteData,value->mItems.setValue(value));
+        mItems.addSource(localData,value->mItems.setValue(value));
+
         return mItems;
     }
 
@@ -125,8 +133,9 @@ public class ItemsRepository {
             MutableLiveData<Item> itemData = new MutableLiveData<>();
             Item item = items.get(pItemIndex);
             itemData.setValue(item);
-            loadImage(item.getImageUrl(), itemData);
-
+            if(!loadImageLocally(Uri.parse(item.getImageUrl()).getLastPathSegment(), itemData)) {
+                loadImage(item.getImageUrl(), itemData);
+            }
             return itemData;
         });
 
@@ -145,6 +154,7 @@ public class ItemsRepository {
                 //do something with the image;
                 Item item = mutableItem.getValue();
                 item.setImage(bitmap);
+                saveImageLocally(bitmap, Uri.parse(pUrl).getLastPathSegment());
                 mutableItem.setValue(item);
             }
         },
@@ -173,7 +183,7 @@ public class ItemsRepository {
             e.printStackTrace();
         }
     }
-    private LiveData<ArrayList<Item>> loadIndexlocally(String pFilename) {
+    private LiveData<ArrayList<Item>> loadIndexLocally(String pFilename) {
         JSONObject indexObject = null;
         MutableLiveData<ArrayList<Item>> mutableItems = new MutableLiveData<ArrayList<Item>>();
         try {
@@ -225,5 +235,28 @@ public class ItemsRepository {
                 e.printStackTrace();
             }
         }
+    }
+    public boolean loadImageLocally(String pFilename, MutableLiveData<Item> pItemData) {
+        boolean loaded = false;
+        ContextWrapper contextWrapper = new ContextWrapper(mApplicationContext);
+        File directory = contextWrapper.getDir("itemImages",Context.MODE_PRIVATE);
+        File file = new File(directory,pFilename);
+        if(file.exists()) {
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = new FileInputStream(file);
+                Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream);
+                Item item = pItemData.getValue();
+                item.setImage(bitmap);
+                pItemData.setValue(item);
+
+                fileInputStream.close();
+                loaded = true;
+            }
+            catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return loaded;
     }
 }
