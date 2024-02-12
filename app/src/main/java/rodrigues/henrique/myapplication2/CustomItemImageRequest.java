@@ -12,6 +12,10 @@ public class CustomItemImageRequest implements Response.Listener<Bitmap>, Respon
     private Item mItem;
     private ImageRequest mImageRequest;
 
+    public ImageRequest getImageRequest(){
+        return mImageRequest;
+    }
+
     public CustomItemImageRequest(String pUrl, Item pItem, VolleyItemImageResponse pVolleyItemImageResponse){
         mVolleyItemImageResponse = pVolleyItemImageResponse;
         mItem = pItem;

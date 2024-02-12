@@ -44,9 +44,12 @@ public class ItemsRepository {
     private MediatorLiveData<ArrayList<Item>> mItems;
     private LiveData<Item> mSelectedItem;
 
+    private VolleyItemListRetriever mRemoteItemList;
+
     private ItemsRepository(Context pApplicationContext) {
         this.mApplicationContext = pApplicationContext;
         mItems = new MediatorLiveData<>();
+        mRemoteItemList = new VolleyItemListRetriever("https://www.goparker.com/600096/index.json", pApplicationContext);
     }
 
     public static ItemsRepository getInstance(Context pApplicationContext) {
@@ -112,6 +115,7 @@ public class ItemsRepository {
         String date = pItemObject.getString("pubDate");
         String description = pItemObject.getString("description");
         String image = pItemObject.getString("image");
+
         Item item = new Item(title,link,date,description);
         item.setImageUrl(image);
 
@@ -119,7 +123,7 @@ public class ItemsRepository {
     }
 
     public LiveData<ArrayList<Item>> getItems(){
-        LiveData<ArrayList<Item>> remoteData = loadItemsFromJSON();
+        LiveData<ArrayList<Item>> remoteData = mRemoteItemList.getItems();
         LiveData<ArrayList<Item>> localData = loadIndexLocally("index.json");
         mItems.addSource(remoteData,value->mItems.setValue(value));
         mItems.addSource(localData,value->mItems.setValue(value));
