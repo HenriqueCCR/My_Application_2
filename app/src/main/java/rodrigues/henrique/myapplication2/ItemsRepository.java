@@ -72,7 +72,7 @@ public class ItemsRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        saveIndexLocally(response, "index.json");
                         ArrayList<Item> items = parseJSONResponse(response);
                         mutableItems.setValue(items);
                         //mItems = mutableItems;
@@ -123,7 +123,8 @@ public class ItemsRepository {
     }
 
     public LiveData<ArrayList<Item>> getItems(){
-        LiveData<ArrayList<Item>> remoteData = mRemoteItemList.getItems();
+        LiveData<ArrayList<Item>> remoteData = loadItemsFromJSON();
+        //LiveData<ArrayList<Item>> remoteData = mRemoteItemList.getItems();
         LiveData<ArrayList<Item>> localData = loadIndexLocally("index.json");
         mItems.addSource(remoteData,value->mItems.setValue(value));
         mItems.addSource(localData,value->mItems.setValue(value));
