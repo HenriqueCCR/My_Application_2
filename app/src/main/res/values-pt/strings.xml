@@ -8,4 +8,5 @@
     <string name="implicitButtonLabel">Abre URL</string>
     <string name="hello_blank_fragment">Olá blank fragment</string>
     <string name="openListButton">Abre lista</string>
+    <string name="openCalendarButton">Calendário</string>
 </resources>

@@ -7,4 +7,7 @@
     <string name="implicitButtonLabel">Open URL</string>
     <string name="openListButton">Open List</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="openCalendarButton">Calendar</string>
+    <string name="backArrow" translatable="false">&lt;-</string>
+    <string name="forwardArrow" translatable="false">-></string>
 </resources>

@@ -37,5 +37,11 @@
             android:layout_height="wrap_content"
             android:onClick="openList"
             android:text="@string/openListButton" />
+
+        <Button
+            android:id="@+id/openCalendarButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/openCalendarButton" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
