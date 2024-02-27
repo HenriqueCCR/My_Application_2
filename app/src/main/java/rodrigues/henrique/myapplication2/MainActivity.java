@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         Intent openListIntent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(openListIntent);
     }
+    public void openCalendar(View view){
+        Intent openCalendarIntent = new Intent(getApplicationContext(), CalendarActivity.class);
+        startActivity(openCalendarIntent);
+    }
 
     @Override
     protected void onPause() {

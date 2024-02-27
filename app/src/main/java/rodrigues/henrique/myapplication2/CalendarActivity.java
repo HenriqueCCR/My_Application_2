@@ -35,12 +35,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
         selectedDate = LocalDate.now();
         setMonthView();
-
-        Bundle extras = getIntent().getExtras();
-        String name = extras.getString("ScriptureRef");
-        Toast.makeText(getApplicationContext(), //Toast is a little message that pops up when activated
-                "This is the extra string that we passed in: " + name,
-                Toast.LENGTH_LONG).show();
     }
     protected  void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
@@ -99,4 +93,44 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
     }
+    /*@Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("Activity Lifecycle","onPause + Calendar");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("Activity Lifecycle","onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("Activity Lifecycle","onResume + Calendar");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("Activity Lifecycle","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("Activity Lifecycle","onDestroy");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("Activity Lifecycle","onRestart");
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }*/
 }
