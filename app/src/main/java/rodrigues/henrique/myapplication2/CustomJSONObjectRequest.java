@@ -9,16 +9,16 @@ import org.json.JSONObject;
 public class CustomJSONObjectRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
     private VolleyJSONObjectResponse mVolleyJSONObjectResponse;
     private String mTag;
-    private JsonObjectRequest mJasonObjectRequest;
+    private JsonObjectRequest mJsonObjectRequest;
 
     public JsonObjectRequest getJsonObjectRequest(){
-        return mJasonObjectRequest;
+        return mJsonObjectRequest;
     }
 
     public CustomJSONObjectRequest(int pMethod, String pUrl, JSONObject pJsonObject, String pTag, VolleyJSONObjectResponse pVolleyObjectResponse){
         this.mVolleyJSONObjectResponse = pVolleyObjectResponse;
-        this.mTag = pTag;
-        mJasonObjectRequest = new JsonObjectRequest(pMethod, pUrl, pJsonObject, this, this);
+        this.mTag = pTag;                                                                                    //Could send tag to index picture you're requesting - Specific use case but allows for other things too
+        mJsonObjectRequest = new JsonObjectRequest(pMethod, pUrl, pJsonObject, this, this);
     }
 
     @Override
