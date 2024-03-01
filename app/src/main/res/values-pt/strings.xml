@@ -9,4 +9,6 @@
     <string name="hello_blank_fragment">Olá blank fragment</string>
     <string name="openListButton">Abre lista</string>
     <string name="openCalendarButton">Calendário</string>
+    <string name="weeklyButtonText">Por Semana</string>
+    <string name="newEventButtonText">Evento Novo</string>
 </resources>

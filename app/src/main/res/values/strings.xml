@@ -10,4 +10,6 @@
     <string name="openCalendarButton">Calendar</string>
     <string name="backArrow" translatable="false">&lt;-</string>
     <string name="forwardArrow" translatable="false">-></string>
+    <string name="weeklyButtonText">Weekly</string>
+    <string name="newEventButtonText">New Event</string>
 </resources>
