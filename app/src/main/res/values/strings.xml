@@ -12,4 +12,5 @@
     <string name="forwardArrow" translatable="false">-></string>
     <string name="weeklyButtonText">Weekly</string>
     <string name="newEventButtonText">New Event</string>
+    <string name="saveButtonText">Save</string>
 </resources>

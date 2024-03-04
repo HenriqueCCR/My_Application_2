@@ -2,6 +2,7 @@ package rodrigues.henrique.myapplication2;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,9 +10,18 @@ import java.util.ArrayList;
 public class CalendarUtils {
     public static LocalDate selectedDate;
 
-    public static String monthYearFromDate(LocalDate date) {
-        DateTimeFormatter formatter = null;
-        formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+    public static String formattedDated(LocalDate date) { // Returns formatted date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy"); //Day Month Year
+        return date.format(formatter);
+    }
+
+    public static String formattedTime(LocalTime time) { // Returns formatted time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); // Hours:Minutes:Seconds
+        return time.format(formatter);
+    }
+
+    public static String monthYearFromDate(LocalDate date) { //Returns formatted date short form for week view
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy"); // Month Year
         return date.format(formatter);
     }
 
@@ -58,4 +68,6 @@ public class CalendarUtils {
 
         return null;
     }
+
+
 }
