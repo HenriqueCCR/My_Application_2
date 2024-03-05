@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
 
     //Trying to create events on Month View
+    private ListView eventListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     protected  void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTextView);
+        eventListView = findViewById(R.id.eventListView);
     }
 
     protected void setMonthView() {
@@ -51,6 +54,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+        setEventAdapter();
     }
 
     public void previousMonthAction(View view){
@@ -73,5 +77,15 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     public void weeklyAction(View view){
         startActivity(new Intent(this,WeekViewActivity.class));
+    }
+
+    private void setEventAdapter() {
+        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        eventListView.setAdapter(eventAdapter);
+    }
+
+    public void newEventAction(View view) {
+        startActivity(new Intent(this, EventEditActivity.class));
     }
 }
