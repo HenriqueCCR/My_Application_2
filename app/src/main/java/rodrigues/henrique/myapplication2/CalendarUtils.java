@@ -19,6 +19,10 @@ public class CalendarUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); // Hours:Minutes:Seconds
         return time.format(formatter);
     }
+    public static String formattedTime2(LocalTime time) { // Returns formatted time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a"); // Hours:Minutes
+        return time.format(formatter);
+    }
 
     public static String monthYearFromDate(LocalDate date) { //Returns formatted date short form for week view
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy"); // Month Year

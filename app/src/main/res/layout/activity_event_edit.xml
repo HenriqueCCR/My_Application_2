@@ -38,16 +38,17 @@
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
-    <TextView
-        android:id="@+id/eventTimeTextView"
+    <Button
+        android:id="@+id/timeButton"
+        android:onClick="popTimePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="Time"
+        android:text="Select Time"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <Button
         android:layout_margin="20dp"

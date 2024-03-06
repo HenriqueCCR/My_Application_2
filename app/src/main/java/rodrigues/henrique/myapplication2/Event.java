@@ -1,7 +1,6 @@
 package rodrigues.henrique.myapplication2;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Event {
@@ -21,9 +20,9 @@ public class Event {
 
     private String name;
     private LocalDate date;
-    private LocalTime time;
+    private String time;
 
-    public Event(String name, LocalDate date, LocalTime time) {
+    public Event(String name, LocalDate date, String time) {
         this.name = name;
         this.date = date;
         this.time = time;
@@ -45,11 +44,11 @@ public class Event {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setTime(String timeString) {
+        this.time = timeString;
     }
 }

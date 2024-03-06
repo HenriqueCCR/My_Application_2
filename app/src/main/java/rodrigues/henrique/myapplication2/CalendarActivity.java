@@ -22,13 +22,10 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
-
-    //Trying to create events on Month View
     private ListView eventListView;
 
     @Override
