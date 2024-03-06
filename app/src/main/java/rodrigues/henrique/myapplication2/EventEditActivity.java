@@ -16,8 +16,9 @@ import java.util.Locale;
 public class EventEditActivity extends AppCompatActivity {
 
     private EditText eventNameEditText;
-    private TextView eventDateTextView, eventTimeTextView;
+    private TextView eventDateTextView;
     private String time;
+    private TextView selectedTimeTextView;
     Button timeButton;
     int hour, minute;
 
@@ -27,12 +28,14 @@ public class EventEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_edit);
         initWidgets();
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
+        selectedTimeTextView.setText("Choose Date");
         timeButton = findViewById(R.id.timeButton);
     }
 
     private void initWidgets() {
         eventNameEditText = findViewById(R.id.eventNameEditText);
         eventDateTextView = findViewById(R.id.eventDateTextView);
+        selectedTimeTextView = findViewById(R.id.selectedTimeTextView);
     }
 
     public void saveEventAction(View view) {
@@ -49,6 +52,7 @@ public class EventEditActivity extends AppCompatActivity {
                 minute = selectedMinute;
                 //timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute)); // %02d:%02d sets Hours and minutes to 2 decimal places
                 time = (String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                selectedTimeTextView.setText(time);
             }
         };
 
