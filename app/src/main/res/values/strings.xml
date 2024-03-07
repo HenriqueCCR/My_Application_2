@@ -13,4 +13,12 @@
     <string name="weeklyButtonText">Weekly</string>
     <string name="newEventButtonText">New Event</string>
     <string name="saveButtonText">Save</string>
+    <string name="selectRun">Select Run</string>
+    <string-array name="runTypes">
+        <item>Long Distance</item>
+        <item>Short Distance</item>
+        <item>Tempo</item>
+        <item>Hill</item>
+        <item>Progression</item>
+    </string-array>
 </resources>

@@ -10,6 +10,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +28,11 @@ public class EventEditActivity extends AppCompatActivity {
     private TextView eventDateTextView;
     private TextView selectedTimeTextView;
     private TextView alertTextView;
+    private AutoCompleteTextView autoCompleteTextView;
+    private ArrayAdapter<String> adapterItems;
+    private String[] runItemsList;
     private String time;
+    private String chosenItem;
     private Button saveButton;
     Button timeButton;
     int hour, minute;
@@ -37,9 +44,22 @@ public class EventEditActivity extends AppCompatActivity {
         initWidgets();
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         selectedTimeTextView.setText("Choose Date");
-        alertTextView = (TextView) findViewById(R.id.alertTextView);
+        alertTextView = findViewById(R.id.alertTextView);
+        runItemsList = getResources().getStringArray(R.array.runTypes);
         saveButton = findViewById(R.id.saveButton);
         timeButton = findViewById(R.id.timeButton);
+
+        autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, runItemsList);
+
+        autoCompleteTextView.setAdapter(adapterItems);
+
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                chosenItem = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +100,8 @@ public class EventEditActivity extends AppCompatActivity {
     }
 
     public void saveEventAction(View view) {
-        String eventName = eventNameEditText.getText().toString();
+        //String eventName = eventNameEditText.getText().toString();
+        String eventName = chosenItem;
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
         Event.eventsList.add(newEvent);
         finish();
