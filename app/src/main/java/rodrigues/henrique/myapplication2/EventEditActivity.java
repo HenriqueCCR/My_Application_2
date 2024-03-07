@@ -23,8 +23,6 @@ import android.widget.TimePicker;
 import java.util.Locale;
 
 public class EventEditActivity extends AppCompatActivity {
-
-    private EditText eventNameEditText;
     private TextView eventDateTextView;
     private TextView selectedTimeTextView;
     private TextView alertTextView;
@@ -42,12 +40,6 @@ public class EventEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
         initWidgets();
-        eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
-        selectedTimeTextView.setText("Choose Date");
-        alertTextView = findViewById(R.id.alertTextView);
-        runItemsList = getResources().getStringArray(R.array.runTypes);
-        saveButton = findViewById(R.id.saveButton);
-        timeButton = findViewById(R.id.timeButton);
 
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, runItemsList);
@@ -94,9 +86,13 @@ public class EventEditActivity extends AppCompatActivity {
     }
 
     private void initWidgets() {
-        eventNameEditText = findViewById(R.id.eventNameEditText);
         eventDateTextView = findViewById(R.id.eventDateTextView);
         selectedTimeTextView = findViewById(R.id.selectedTimeTextView);
+        eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
+        alertTextView = findViewById(R.id.alertTextView);
+        runItemsList = getResources().getStringArray(R.array.runTypes);
+        saveButton = findViewById(R.id.saveButton);
+        timeButton = findViewById(R.id.timeButton);
     }
 
     public void saveEventAction(View view) {
