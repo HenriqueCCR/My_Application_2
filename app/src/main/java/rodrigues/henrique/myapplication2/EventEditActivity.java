@@ -56,7 +56,29 @@ public class EventEditActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (time == null) {
+                if (chosenItem == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventEditActivity.this);
+
+                    builder.setCancelable(true);
+                    builder.setTitle("No Run was chosen!");
+                    builder.setMessage("Please select a Run");
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alertTextView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    builder.show();
+                }
+                else if (time == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(EventEditActivity.this);
 
                     builder.setCancelable(true);
