@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,8 +23,10 @@ public class EventEditActivity extends AppCompatActivity {
 
     private EditText eventNameEditText;
     private TextView eventDateTextView;
-    private String time;
     private TextView selectedTimeTextView;
+    private TextView alertTextView;
+    private String time;
+    private Button saveButton;
     Button timeButton;
     int hour, minute;
 
@@ -34,7 +37,40 @@ public class EventEditActivity extends AppCompatActivity {
         initWidgets();
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         selectedTimeTextView.setText("Choose Date");
+        alertTextView = (TextView) findViewById(R.id.alertTextView);
+        saveButton = findViewById(R.id.saveButton);
         timeButton = findViewById(R.id.timeButton);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (time == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventEditActivity.this);
+
+                    builder.setCancelable(true);
+                    builder.setTitle("No time was given!");
+                    builder.setMessage("Please select a time for your run");
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alertTextView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    builder.show();
+                }
+                else{
+                    saveEventAction(view);
+                }
+            }
+        });
     }
 
     private void initWidgets() {
@@ -47,12 +83,6 @@ public class EventEditActivity extends AppCompatActivity {
         String eventName = eventNameEditText.getText().toString();
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
         Event.eventsList.add(newEvent);
-
-        if(time == null) {
-            //onButtonShowPopupWindowClick(view);
-            //saveEventAction(view);
-        }
-
         finish();
     }
 
@@ -73,29 +103,5 @@ public class EventEditActivity extends AppCompatActivity {
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
-    }
-
-    public void onButtonShowPopupWindowClick(View view) {
-        // inflate layout of popup window
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_window_view, null);
-
-        //create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // allows for taps outside of popup window to dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        //show popup window
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-        //dismiss popup window when touched
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                popupWindow.dismiss();
-                return false;
-            }
-        });
     }
 }
