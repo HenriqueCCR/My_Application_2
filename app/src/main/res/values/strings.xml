@@ -5,6 +5,7 @@
     <string name="forwardArrow" translatable="false">-></string>
     <string name="weeklyButtonText">Weekly</string>
     <string name="newEventButtonText">New Event</string>
+    <string name="newLogButtonText">Log Run</string>
     <string name="saveButtonText">Save</string>
     <string name="selectRun">Select Run</string>
     <string-array name="runTypes">

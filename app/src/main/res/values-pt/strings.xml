@@ -4,6 +4,7 @@
     <string name="openCalendarButton">Calendário</string>
     <string name="weeklyButtonText">Por Semana</string>
     <string name="newEventButtonText">Evento Novo</string>
+    <string name="newLogButtonText">Log Run</string>
     <string name="saveButtonText">Salva</string>
     <string name="selectRun"> Escolha Corrida</string>
 </resources>

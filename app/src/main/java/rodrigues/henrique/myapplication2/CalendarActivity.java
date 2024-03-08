@@ -85,4 +85,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     public void newEventAction(View view) {
         startActivity(new Intent(this, EventEditActivity.class));
     }
+
+    public void newLogAction(View view) {
+        startActivity(new Intent(this, LogEditActivity.class));
+    }
 }
