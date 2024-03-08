@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Rodrigues, Henrique - Work</string>
-    <string name="hello_string">Olá Android!</string>
-    <string name="coinTossResult1">Cabeca!</string>
-    <string name="coinTossResult2">Rabo!</string>
-    <string name="coinTossButtonText">Clique aqui!</string>
-    <string name="implicitButtonLabel">Abre URL</string>
-    <string name="hello_blank_fragment">Olá blank fragment</string>
-    <string name="openListButton">Abre lista</string>
     <string name="openCalendarButton">Calendário</string>
     <string name="weeklyButtonText">Por Semana</string>
     <string name="newEventButtonText">Evento Novo</string>

@@ -24,12 +24,6 @@
             android:name=".CalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".ItemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ListActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -38,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CoinTossActivity" />
     </application>
 
 </manifest>
