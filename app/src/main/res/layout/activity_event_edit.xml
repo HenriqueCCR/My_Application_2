@@ -19,22 +19,6 @@
         android:textColor="@color/black"
         android:fontFamily="sans-serif-black"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:hint="@string/selectRun"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="230dp"
-            android:layout_height="match_parent"
-            android:inputType="none"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/eventDateTextView"
         android:layout_width="wrap_content"
@@ -46,6 +30,21 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/black"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/selectRun"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:inputType="none"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

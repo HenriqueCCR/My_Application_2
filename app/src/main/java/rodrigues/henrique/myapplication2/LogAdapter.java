@@ -12,25 +12,22 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class EventAdapter extends ArrayAdapter<Event> {
-
-    public EventAdapter(@NonNull Context context, List<Event> events) {
-        super(context, 0, events);
-    }
+public class LogAdapter extends ArrayAdapter<Log> {
+    public LogAdapter(@NonNull Context context, List<Log> logs) { super(context, 0, logs); }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Event event = getItem(position);
+        Log logs = getItem(position);
 
-        if(convertView == null){
+        if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cell, parent, false);
         }
 
-        TextView eventCellTextView = convertView.findViewById(R.id.cellTextView);
+        TextView logCellTextView = convertView.findViewById(R.id.cellTextView);
 
-        String eventTitle = event.getName() + " " + event.getTime();
-        eventCellTextView.setText(eventTitle);
+        String logTitle = logs.getName() + " " + logs.getDistance() + " " + logs.getTime();
+        logCellTextView.setText(logTitle);
         return convertView;
     }
 }
