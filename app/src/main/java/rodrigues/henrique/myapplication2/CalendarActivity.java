@@ -72,10 +72,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    public void weeklyAction(View view){
-        startActivity(new Intent(this,WeekViewActivity.class));
-    }
-
     private void setEventAdapter() {
         ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);

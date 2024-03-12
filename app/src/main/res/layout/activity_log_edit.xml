@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".EventEditActivity">
+    tools:context=".LogEditActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +68,9 @@
             android:id="@+id/distanceText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:text="KM"
+            android:textAlignment="textEnd"
+            android:textColor="@color/darkGray"/>
 
     </LinearLayout>
 
@@ -91,7 +93,10 @@
             android:id="@+id/timeText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="00:00:00"
+            android:textAlignment="center"
+            android:textColor="@color/darkGray"/>
 
     </LinearLayout>
 
