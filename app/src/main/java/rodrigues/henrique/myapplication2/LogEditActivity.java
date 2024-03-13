@@ -89,6 +89,7 @@ public class LogEditActivity extends AppCompatActivity {
         eventDateTextView = findViewById(R.id.eventDateTextView);
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         distanceText = findViewById(R.id.distanceText);
+        distanceText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "100")});
 
         hourInputText = findViewById(R.id.hourInputText);
         hourInputText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "10")});
