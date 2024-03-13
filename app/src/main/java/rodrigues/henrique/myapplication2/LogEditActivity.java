@@ -3,6 +3,7 @@ package rodrigues.henrique.myapplication2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -88,11 +89,13 @@ public class LogEditActivity extends AppCompatActivity {
         eventDateTextView = findViewById(R.id.eventDateTextView);
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         distanceText = findViewById(R.id.distanceText);
+
         hourInputText = findViewById(R.id.hourInputText);
-
+        hourInputText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "10")});
         minuteInputText = findViewById(R.id.minuteInputText);
-
+        minuteInputText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "59")});
         secondInputText = findViewById(R.id.secondInputText);
+        secondInputText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "59")});
 
         alertTextView = findViewById(R.id.alertTextView);
         runItemsList = getResources().getStringArray(R.array.runTypes);
