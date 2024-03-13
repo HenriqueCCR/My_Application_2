@@ -68,7 +68,7 @@
             android:id="@+id/distanceText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="KM"
+            android:hint="KM"
             android:textAlignment="textEnd"
             android:textColor="@color/darkGray"/>
 
@@ -90,13 +90,37 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/timeText"
-            android:layout_width="100dp"
+            android:id="@+id/hourInputText"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="00:00:00"
             android:textAlignment="center"
-            android:textColor="@color/darkGray"/>
+            android:textColor="@color/darkGray"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"/>
+
+        <EditText
+            android:id="@+id/minuteInputText"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/darkGray"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"/>
+
+        <EditText
+            android:id="@+id/secondInputText"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/darkGray"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"/>
 
     </LinearLayout>
 

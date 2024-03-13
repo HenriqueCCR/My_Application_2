@@ -56,21 +56,7 @@ public class EventEditActivity extends AppCompatActivity {
                     builder.setCancelable(true);
                     builder.setTitle("No Run was chosen!");
                     builder.setMessage("Please select a Run");
-
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            alertTextView.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    builder.show();
+                    alertWindowButtons(builder); // Sending re-usable code so alertWindowButtons()
                 }
                 else if (time == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(EventEditActivity.this);
@@ -78,21 +64,7 @@ public class EventEditActivity extends AppCompatActivity {
                     builder.setCancelable(true);
                     builder.setTitle("No time was given!");
                     builder.setMessage("Please select a time for your run");
-
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            alertTextView.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    builder.show();
+                    alertWindowButtons(builder);
                 }
                 else{
                     saveEventAction(view);
@@ -135,5 +107,22 @@ public class EventEditActivity extends AppCompatActivity {
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
+    }
+
+    public void alertWindowButtons(AlertDialog.Builder builder) {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alertTextView.setVisibility(View.VISIBLE);
+            }
+        });
+        builder.show();
     }
 }

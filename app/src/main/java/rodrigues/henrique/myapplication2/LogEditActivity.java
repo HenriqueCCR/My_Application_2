@@ -9,15 +9,20 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
 public class LogEditActivity extends AppCompatActivity {
     private TextView eventDateTextView;
     private EditText distanceText;
-    private EditText timeText;
+    private EditText hourInputText;
+    private EditText minuteInputText;
+    private EditText secondInputText;
     private TextView alertTextView;
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapterItems;
@@ -25,7 +30,7 @@ public class LogEditActivity extends AppCompatActivity {
     private String time;
     private String chosenItem;
     private Button saveButton;
-    int hour, minute, distance;
+    int hour, minute, second, distance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +61,7 @@ public class LogEditActivity extends AppCompatActivity {
                     builder.setMessage("Please select a Run");
                     alertWindowButtons(builder);
                 }
-                else if (distanceText == null) {
+                else if (distance > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
 
                     builder.setCancelable(true);
@@ -64,14 +69,14 @@ public class LogEditActivity extends AppCompatActivity {
                     builder.setMessage("Please select a time for your run");
                     alertWindowButtons(builder);
                 }
-                else if (timeText == null) {
+                /*else if (timeText == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
 
                     builder.setCancelable(true);
                     builder.setTitle("No time was given!");
                     builder.setMessage("Please select a time for your run");
                     alertWindowButtons(builder);
-                }
+                }*/
                 else{
                     saveEventAction(view);
                 }
@@ -83,7 +88,12 @@ public class LogEditActivity extends AppCompatActivity {
         eventDateTextView = findViewById(R.id.eventDateTextView);
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         distanceText = findViewById(R.id.distanceText);
-        timeText = findViewById(R.id.timeText);
+        hourInputText = findViewById(R.id.hourInputText);
+
+        minuteInputText = findViewById(R.id.minuteInputText);
+
+        secondInputText = findViewById(R.id.secondInputText);
+
         alertTextView = findViewById(R.id.alertTextView);
         runItemsList = getResources().getStringArray(R.array.runTypes);
         saveButton = findViewById(R.id.saveButton);
