@@ -27,6 +27,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
+    private ListView logListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTextView);
         eventListView = findViewById(R.id.eventListView);
+        logListView = findViewById(R.id.logListView);
     }
 
     protected void setMonthView() {
@@ -52,6 +54,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
         setEventAdapter();
+        setLogAdapter();
     }
 
     public void previousMonthAction(View view){
@@ -78,10 +81,14 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         eventListView.setAdapter(eventAdapter);
     }
 
-    public void newEventAction(View view) {
-        startActivity(new Intent(this, EventEditActivity.class));
+    private void setLogAdapter() {
+        // Log class clashes with util Logs
+        ArrayList<rodrigues.henrique.myapplication2.Log> dailyLogs = rodrigues.henrique.myapplication2.Log.logsForDate(CalendarUtils.selectedDate);
+        LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLogs);
+        logListView.setAdapter(logAdapter);
     }
 
+    public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); }
     public void newLogAction(View view) {
         startActivity(new Intent(this, LogEditActivity.class));
     }

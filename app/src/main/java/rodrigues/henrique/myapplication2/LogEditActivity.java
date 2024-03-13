@@ -62,22 +62,38 @@ public class LogEditActivity extends AppCompatActivity {
                     builder.setMessage("Please select a Run");
                     alertWindowButtons(builder);
                 }
-                else if (distance > 0) {
+                else if (distanceText == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
 
                     builder.setCancelable(true);
-                    builder.setTitle("No time was given!");
+                    builder.setTitle("No distance was given!");
+                    builder.setMessage("Please write a distance for your run");
+                    alertWindowButtons(builder);
+                }
+                else if (hourInputText == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
+
+                    builder.setCancelable(true);
+                    builder.setTitle("No hour was given!");
                     builder.setMessage("Please select a time for your run");
                     alertWindowButtons(builder);
                 }
-                /*else if (timeText == null) {
+                else if (minuteInputText == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
 
                     builder.setCancelable(true);
-                    builder.setTitle("No time was given!");
+                    builder.setTitle("No minute was given!");
                     builder.setMessage("Please select a time for your run");
                     alertWindowButtons(builder);
-                }*/
+                }
+                else if (minuteInputText == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
+
+                    builder.setCancelable(true);
+                    builder.setTitle("No second was given!");
+                    builder.setMessage("Please select a time for your run");
+                    alertWindowButtons(builder);
+                }
                 else{
                     saveEventAction(view);
                 }
@@ -105,6 +121,7 @@ public class LogEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         String logName = chosenItem;
+        time = hour + ":" + minute + ":" + second;
         Log newLog = new Log(logName,distance, CalendarUtils.selectedDate, time);
         Log.logEventsList.add(newLog);
         finish();
@@ -126,4 +143,8 @@ public class LogEditActivity extends AppCompatActivity {
         });
         builder.show();
     }
+    public void setDistance() { distance = Integer.parseInt(distanceText.toString()); }
+    public void setHour() { hour = Integer.parseInt(hourInputText.toString()); }
+    public void setMinute() { minute = Integer.parseInt(minuteInputText.toString()); }
+    public void setSecond() { second = Integer.parseInt(secondInputText.toString()); }
 }
