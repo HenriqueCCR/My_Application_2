@@ -85,7 +85,7 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         String eventName = chosenItem;
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
+        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time, true);
         Event.eventsList.add(newEvent);
         finish();
     }

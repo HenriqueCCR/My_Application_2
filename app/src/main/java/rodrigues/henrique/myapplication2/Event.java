@@ -21,11 +21,13 @@ public class Event {
     private String name;
     private LocalDate date;
     private String time;
+    private boolean visible;
 
-    public Event(String name, LocalDate date, String time) {
+    public Event(String name, LocalDate date, String time, boolean visible) {
         this.name = name;
         this.date = date;
         this.time = time;
+        this.visible = visible;
     }
 
     public String getName() {
@@ -50,5 +52,12 @@ public class Event {
 
     public void setTime(String timeString) {
         this.time = timeString;
+    }
+    public boolean getVisibility() {
+        return visible;
+    }
+
+    public void setVisibility(boolean visible) {
+        this.visible = visible;
     }
 }

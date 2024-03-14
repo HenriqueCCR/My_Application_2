@@ -34,6 +34,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
             layoutParams.height = (int) parent.getHeight();
         }
 
+
+        //eventCircle.setVisibility(View.VISIBLE);
+
         return new CalendarViewHolder(view, onItemListener, days);
     }
 
