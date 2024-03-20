@@ -29,6 +29,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
     private ListView logListView;
+    private Button eventCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

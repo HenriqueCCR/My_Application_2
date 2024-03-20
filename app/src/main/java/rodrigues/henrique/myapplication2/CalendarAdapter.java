@@ -15,7 +15,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
     private final ArrayList<LocalDate> days;
     private final OnItemListener onItemListener;
 
-    public CalendarAdapter( ArrayList<LocalDate> days, OnItemListener onItemListener) {
+    public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener) {
         this.days = days;
         this.onItemListener = onItemListener;
     }
@@ -34,9 +34,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
             layoutParams.height = (int) parent.getHeight();
         }
 
-
-        //eventCircle.setVisibility(View.VISIBLE);
-
         return new CalendarViewHolder(view, onItemListener, days);
     }
 
@@ -49,7 +46,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
         else{
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             if (date.equals(CalendarUtils.selectedDate)) {
-                holder.parentView.setBackgroundColor(Color.LTGRAY);
+                holder.parentView.setBackgroundColor(Color.LTGRAY); // When date is clicked turn background light gray
             }
         }
     }
