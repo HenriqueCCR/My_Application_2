@@ -78,12 +78,21 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     }
 
     private void setEventAdapter() {
-        //ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
         //EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         //eventListView.setAdapter(eventAdapter);
 
-        ArrayList<Event> storedEvents = CalendarUtils.getStoredEvents(this);
-        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), storedEvents);
+        ArrayList<String> storedEvents = CalendarUtils.getStoredEvents(this);
+        for (ArrayList<String> event : storedEvents) {
+            //LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy"))
+            if(event.getDate() == CalendarUtils.selectedDate){
+                //event.setDate(CalendarUtils.selectedDate);
+                Event newEvent = new Event(event.getName(), event.getDate(), event.getTime(), event.getVisibility());
+                dailyEvents.add(event);
+            }
+        }
+
+        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
     }
 
