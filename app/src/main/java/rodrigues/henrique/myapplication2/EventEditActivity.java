@@ -13,6 +13,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -87,6 +91,22 @@ public class EventEditActivity extends AppCompatActivity {
         String eventName = chosenItem;
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time, true);
         Event.eventsList.add(newEvent);
+
+        // Get SharedPreferences instance
+        SharedPreferences sharedPreferences = getSharedPreferences("MyEvents", Context.MODE_PRIVATE);
+
+        // Get the SharedPreferences editor to edit data
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Convert the eventsList to a String using Gson
+        Gson gson = new Gson();
+        String eventsJson = gson.toJson(Event.eventsList);
+
+        // Store the eventsJson string in SharedPreferences
+        editor.putString("events", eventsJson);
+
+        editor.apply();
+
         finish();
     }
 

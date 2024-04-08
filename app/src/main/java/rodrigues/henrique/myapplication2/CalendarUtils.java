@@ -1,13 +1,38 @@
 package rodrigues.henrique.myapplication2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarUtils {
     public static LocalDate selectedDate;
+
+    private static final String SHARED_PREF_NAME = "MyEvents";
+    private static final String EVENTS_KEY = "events";
+
+    public static ArrayList<Event> getStoredEvents(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String eventsJson = sharedPreferences.getString(EVENTS_KEY, null);
+
+        // If no data is stored - return empty list
+        if (eventsJson == null) {
+            return new ArrayList<>();
+        }
+
+        Gson gson = new Gson();
+        Type eventType = new TypeToken<List<Event>>() {}.getType();
+        return gson.fromJson(eventsJson, eventType);
+    }
 
     public static String formattedDated(LocalDate date) { // Returns formatted date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy"); //Day Month Year
