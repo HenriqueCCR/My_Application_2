@@ -20,7 +20,7 @@ public class CalendarUtils {
     private static final String SHARED_PREF_NAME = "MyEvents";
     private static final String EVENTS_KEY = "events";
 
-    public static ArrayList<String> getStoredEvents(Context context) {
+    public static ArrayList<EventStrings> getStoredEvents(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String eventsJson = sharedPreferences.getString(EVENTS_KEY, null);
 
@@ -30,7 +30,7 @@ public class CalendarUtils {
         }
 
         Gson gson = new Gson();
-        Type eventType = new TypeToken<List<Event>>() {}.getType();
+        Type eventType = new TypeToken<List<EventStrings>>() {}.getType();
         return gson.fromJson(eventsJson, eventType);
     }
 

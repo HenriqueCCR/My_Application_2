@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +27,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
     private ListView logListView;
-    private Button eventCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +79,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         //EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         //eventListView.setAdapter(eventAdapter);
 
-        ArrayList<String> storedEvents = CalendarUtils.getStoredEvents(this);
-        for (ArrayList<String> event : storedEvents) {
+        ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
+        for (EventStrings event : storedEvents) {
             //LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy"))
-            if(event.getDate() == CalendarUtils.selectedDate){
+            if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
                 //event.setDate(CalendarUtils.selectedDate);
-                Event newEvent = new Event(event.getName(), event.getDate(), event.getTime(), event.getVisibility());
-                dailyEvents.add(event);
+                Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
+                dailyEvents.add(newEvent);
             }
         }
 

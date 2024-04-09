@@ -98,6 +98,10 @@ public class EventEditActivity extends AppCompatActivity {
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time, true);
         Event.eventsList.add(newEvent);
 
+        // Create string copy for Json
+        EventStrings newEventStrings = new EventStrings(eventName, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true");
+        EventStrings.eventsStringsList.add(newEventStrings);
+
         // Get SharedPreferences instance
         SharedPreferences sharedPreferences = getSharedPreferences("MyEvents", Context.MODE_PRIVATE); // Saves all variables into String format - but can't save LocalDate into regular String only "00 00 0000"
 
@@ -107,8 +111,8 @@ public class EventEditActivity extends AppCompatActivity {
         // Convert the eventsList to a String using Gson
         Gson gson = new Gson();
 
-        ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
-        String eventsJson = gson.toJson(forEventsJson); // Originally: String eventsJson = gson.toJson(Event.eventsList);
+        //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
+        String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
 
         // Store the eventsJson string in SharedPreferences
         editor.putString("events", eventsJson);
