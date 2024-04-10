@@ -1,23 +1,42 @@
 package rodrigues.henrique.myapplication2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarUtils {
     public static LocalDate selectedDate;
 
+    private static final String SHARED_PREF_NAME = "MyEvents";
+    private static final String EVENTS_KEY = "events";
+
+    public static ArrayList<EventStrings> getStoredEvents(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String eventsJson = sharedPreferences.getString(EVENTS_KEY, null);
+
+        // If no data is stored - return empty list
+        if (eventsJson == null) {
+            return new ArrayList<>();
+        }
+
+        Gson gson = new Gson();
+        Type eventType = new TypeToken<List<EventStrings>>() {}.getType();
+        return gson.fromJson(eventsJson, eventType);
+    }
+
     public static String formattedDated(LocalDate date) { // Returns formatted date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy"); //Day Month Year
         return date.format(formatter);
-    }
-
-    public static String formattedTime(LocalTime time) { // Returns formatted time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); // Hours:Minutes:Seconds
-        return time.format(formatter);
     }
 
     public static String monthYearFromDate(LocalDate date) { //Returns formatted date short form for week view

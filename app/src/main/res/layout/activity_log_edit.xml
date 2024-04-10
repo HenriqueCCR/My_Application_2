@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".EventEditActivity">
+    tools:context=".LogEditActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="Schedule Run"
+        android:text="Log Run"
         android:textSize="30sp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:hint="@string/selectRun"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
@@ -50,30 +51,82 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:inputType="number"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/timeButton"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:onClick="popTimePicker"
-            android:text="Select Time"
+            android:layout_marginRight="10dp"
+            android:text="Distance"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
+        <EditText
+            android:id="@+id/distanceText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="KM"
+            android:textAlignment="textEnd"
+            android:textColor="@color/darkGray"
+            android:inputType="number"
+            android:onClick="setDistance"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
         <TextView
-            android:id="@+id/selectedTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Time"
+            android:layout_marginRight="10dp"
+            android:text="Time"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/hourInputText"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textColor="@color/darkGray"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:onClick="setHour"/>
+
+        <EditText
+            android:id="@+id/minuteInputText"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/darkGray"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:onClick="setMinute"/>
+
+        <EditText
+            android:id="@+id/secondInputText"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/darkGray"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:onClick="setSecond"/>
 
     </LinearLayout>
 
@@ -89,7 +142,7 @@
         android:onClick="saveEventAction"
         android:layout_gravity="center"
         android:textSize="20sp"/>
-        <!-- onClick Not called directly anymore -->
+    <!-- onClick Not called directly anymore -->
 
     <TextView
         android:id="@+id/alertTextView"

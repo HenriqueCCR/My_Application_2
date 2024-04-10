@@ -1,6 +1,7 @@
 package rodrigues.henrique.myapplication2;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     public final View parentView;
     public final TextView dayOfMonth;
     private final CalendarAdapter.OnItemListener onItemListener;
+    //public final Button eventCircle;
 
     public CalendarViewHolder(@NonNull View itemView, CalendarAdapter.OnItemListener onItemListener, ArrayList<LocalDate> days) {
         super(itemView);
@@ -22,6 +24,17 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         this.onItemListener = onItemListener;
         itemView.setOnClickListener(this);
         this.days = days;
+
+        // Event circle needs to be visible when event is created for that date
+        // Add event circle to ?calendar layout? when new event is created
+
+        /*
+        eventCircle = eventCircle.findViewById(R.id.eventCircle);
+        // Display event circle marker in calendar cell
+        for(int i = 0; i < Event.eventsList.size(); i++) {
+            Event.eventsList.get(0).setVisibility(View.VISIBLE);
+
+        } */
     }
 
     @Override

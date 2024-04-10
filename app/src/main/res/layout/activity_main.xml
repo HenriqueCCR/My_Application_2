@@ -16,33 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/coinTossButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:insetLeft="0dp"
-            android:insetRight="0dp"
-            android:onClick="openCoinToss"
-            android:text="@string/coinTossButtonText" />
-
-        <Button
-            android:id="@+id/implicitButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openURL"
-            android:text="@string/implicitButtonLabel" />
-
-        <Button
-            android:id="@+id/openListButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openList"
-            android:text="@string/openListButton" />
-
-        <Button
             android:id="@+id/openCalendarButton"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:onClick="openCalendar"
-            android:text="@string/openCalendarButton" />
+            android:text="@string/openCalendarButton"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

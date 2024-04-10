@@ -8,18 +8,16 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Event {
+public class EventStrings {
 
-    public static ArrayList<Event> eventsList = new ArrayList<>();
+    public static ArrayList<EventStrings> eventsStringsList = new ArrayList<EventStrings>();
 
-    public static ArrayList<Event> eventsForDate(LocalDate date){
-        ArrayList<Event> events = new ArrayList<>();
+    public static ArrayList<EventStrings> eventsForDate(LocalDate date){ // Can use this method to return all events from specific date
+        ArrayList<EventStrings> events = new ArrayList<>();
 
-        for(Event event : eventsList){
+        for(EventStrings event : eventsStringsList){
             if(event.getDate().equals(date)){
                 events.add(event);
             }
@@ -28,12 +26,12 @@ public class Event {
     }
 
     private String name;
-    private LocalDate date;
+    private String date;
     private String time;
-    private boolean visible;
+    private String visible;
 
 
-    public Event(String name, LocalDate date, String time, boolean visible) {
+    public EventStrings(String name, String date, String time, String visible) {
         this.name = name;
         this.date = date;
         this.time = time;
@@ -48,11 +46,11 @@ public class Event {
         this.name = name;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -63,11 +61,11 @@ public class Event {
     public void setTime(String timeString) {
         this.time = timeString;
     }
-    public boolean getVisibility() {
+    public String getVisibility() {
         return visible;
     }
 
-    public void setVisibility(boolean visible) {
+    public void setVisibility(String visible) {
         this.visible = visible;
     }
 }

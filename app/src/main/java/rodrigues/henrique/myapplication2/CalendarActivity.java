@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +19,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+    private ListView eventListView;
+    private ListView logListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     protected  void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTextView);
+        eventListView = findViewById(R.id.eventListView);
+        logListView = findViewById(R.id.logListView);
     }
 
     protected void setMonthView() {
@@ -49,6 +52,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+        setEventAdapter();
+        setLogAdapter();
     }
 
     public void previousMonthAction(View view){
@@ -69,7 +74,46 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    public void weeklyAction(View view){
-        startActivity(new Intent(this,WeekViewActivity.class));
+    private void setEventAdapter() {
+        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        eventListView.setAdapter(eventAdapter);
+
+        ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
+        for (EventStrings event : storedEvents) {
+            try{
+                /*if(event.getTime().equals(dailyEvents.get(0).getTime())) {
+                    continue;
+                }*/
+                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                    Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
+                    dailyEvents.add(newEvent);
+                }
+            }
+            catch (Exception e) {
+                // Empty dailyEvents Array
+                System.out.println("Empty dailyEvents array - could not index");
+
+                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                    Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
+                    dailyEvents.add(newEvent);
+                }
+            }
+        }
+
+        eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        eventListView.setAdapter(eventAdapter);
+    }
+
+    private void setLogAdapter() {
+        // Log class clashes with util Logs
+        ArrayList<rodrigues.henrique.myapplication2.Log> dailyLogs = rodrigues.henrique.myapplication2.Log.logsForDate(CalendarUtils.selectedDate);
+        LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLogs);
+        logListView.setAdapter(logAdapter);
+    }
+
+    public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); }
+    public void newLogAction(View view) {
+        startActivity(new Intent(this, LogEditActivity.class));
     }
 }
