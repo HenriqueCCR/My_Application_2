@@ -108,16 +108,21 @@ public class EventEditActivity extends AppCompatActivity {
         // Get the SharedPreferences editor to edit data
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // Convert the eventsList to a String using Gson
-        Gson gson = new Gson();
+        if (sharedPreferences.contains("events")) {
+            editor.remove("events");
+            editor.apply();
+        }
+        else{
+            // Convert the eventsList to a String using Gson
+            Gson gson = new Gson();
 
-        //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
-        String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
+            //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
+            String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
 
-        // Store the eventsJson string in SharedPreferences
-        editor.putString("events", eventsJson);
-
-        editor.apply();
+            // Store the eventsJson string in SharedPreferences
+            editor.putString("events", eventsJson);
+            editor.apply(); // Might need to clear past instances of saved data - loading Json files that aren't there
+        }
 
         finish();
     }
