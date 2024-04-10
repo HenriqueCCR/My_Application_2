@@ -7,14 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -107,8 +104,29 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     private void setLogAdapter() {
         // Log class clashes with util Logs
-        ArrayList<rodrigues.henrique.myapplication2.Log> dailyLogs = rodrigues.henrique.myapplication2.Log.logsForDate(CalendarUtils.selectedDate);
-        LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLogs);
+        ArrayList<Logg> dailyLoggs = Logg.logsForDate(CalendarUtils.selectedDate);
+        LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
+        logListView.setAdapter(logAdapter);
+
+        ArrayList<LogStrings> storedLog = CalendarUtils.getStoredLogs(this);
+        for (LogStrings log : storedLog) {
+            try{
+                if(LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                    Logg newLog = new Logg(log.getName(), Double.parseDouble(log.getDistance()), LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), log.getTime());
+                    dailyLoggs.add(newLog);
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Empty dailyLoggs array - could not index");
+
+                if(LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                    Logg newLog = new Logg(log.getName(), Double.parseDouble(log.getDistance()), LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), log.getTime());
+                    dailyLoggs.add(newLog);
+                }
+            }
+        }
+
+        logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
         logListView.setAdapter(logAdapter);
     }
 

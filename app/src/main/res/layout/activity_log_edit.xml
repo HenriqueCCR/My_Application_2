@@ -72,8 +72,7 @@
             android:hint="KM"
             android:textAlignment="textEnd"
             android:textColor="@color/darkGray"
-            android:inputType="number"
-            android:onClick="setDistance"/>
+            android:inputType="numberDecimal"/>
 
     </LinearLayout>
 
@@ -101,8 +100,7 @@
             android:textColor="@color/darkGray"
             android:hint="00"
             android:inputType="number"
-            android:maxLength="2"
-            android:onClick="setHour"/>
+            android:maxLength="2"/>
 
         <EditText
             android:id="@+id/minuteInputText"
@@ -113,8 +111,7 @@
             android:textColor="@color/darkGray"
             android:hint="00"
             android:inputType="number"
-            android:maxLength="2"
-            android:onClick="setMinute"/>
+            android:maxLength="2"/>
 
         <EditText
             android:id="@+id/secondInputText"
@@ -125,8 +122,7 @@
             android:textColor="@color/darkGray"
             android:hint="00"
             android:inputType="number"
-            android:maxLength="2"
-            android:onClick="setSecond"/>
+            android:maxLength="2"/>
 
     </LinearLayout>
 

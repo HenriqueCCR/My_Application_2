@@ -59,6 +59,7 @@ public class EventEditActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Add pop up when User inputs run for same time
                 if (chosenItem == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(EventEditActivity.this);
 
@@ -123,11 +124,6 @@ public class EventEditActivity extends AppCompatActivity {
 
         //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
         String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
-
-        // Getting existing events
-        //String existingEvents = sharedPreferences.getString(SharedPreferences.EVENTS_KEY, ""); // FIX THIS
-        //Append new event to existing events
-        //existingEvents += newEventStrings;
 
         // Store the eventsJson string in SharedPreferences
         editor.putString("events", eventsJson);

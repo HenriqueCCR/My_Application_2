@@ -12,13 +12,13 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class LogAdapter extends ArrayAdapter<Log> {
-    public LogAdapter(@NonNull Context context, List<Log> logs) { super(context, 0, logs); }
+public class LogAdapter extends ArrayAdapter<Logg> {
+    public LogAdapter(@NonNull Context context, List<Logg> loggs) { super(context, 0, loggs); }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Log logs = getItem(position);
+        Logg logs = getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cell, parent, false);
@@ -26,7 +26,7 @@ public class LogAdapter extends ArrayAdapter<Log> {
 
         TextView logCellTextView = convertView.findViewById(R.id.cellTextView);
 
-        String logTitle = logs.getName() + " " + logs.getDistance() + " " + logs.getTime();
+        String logTitle = logs.getName() + " " + logs.getDistance() + "Km" + " " + logs.getTime();
         logCellTextView.setText(logTitle);
         return convertView;
     }

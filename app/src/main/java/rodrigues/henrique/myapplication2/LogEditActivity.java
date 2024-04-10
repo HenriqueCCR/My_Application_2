@@ -1,7 +1,9 @@
 package rodrigues.henrique.myapplication2;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
@@ -10,13 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Locale;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class LogEditActivity extends AppCompatActivity {
     private TextView eventDateTextView;
@@ -31,7 +34,7 @@ public class LogEditActivity extends AppCompatActivity {
     private String time;
     private String chosenItem;
     private Button saveButton;
-    int hour, minute, second, distance;
+    double distance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,7 +108,7 @@ public class LogEditActivity extends AppCompatActivity {
         eventDateTextView = findViewById(R.id.eventDateTextView);
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         distanceText = findViewById(R.id.distanceText);
-        distanceText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "100")});
+        distanceText.setFilters(new InputFilter[]{ new InputFilterMinMax("0.0", "100.0")});
 
         hourInputText = findViewById(R.id.hourInputText);
         hourInputText.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "10")});
@@ -121,9 +124,28 @@ public class LogEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         String logName = chosenItem;
-        time = hour + ":" + minute + ":" + second;
-        Log newLog = new Log(logName,distance, CalendarUtils.selectedDate, time);
-        Log.logEventsList.add(newLog);
+        time = hourInputText.getText().toString() + ":" + minuteInputText.getText().toString() + ":" + secondInputText.getText().toString(); // Saving EditText fields directly into time variable
+        Logg newLogg = new Logg(logName,Double.parseDouble(distanceText.getText().toString()), CalendarUtils.selectedDate, time);
+        Logg.loggEventsList.add(newLogg);
+
+        LogStrings newLogStrings = new LogStrings(logName, Double.toString(distance), CalendarUtils.formattedDated(CalendarUtils.selectedDate), time);
+
+        ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(this);
+        if (CalendarUtils.getStoredLogs(this).size() >0) {
+            for (LogStrings log : storedLogs){
+                LogStrings.logStringsList.add(log);
+            }
+        }
+
+        LogStrings.logStringsList.add(newLogStrings);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyLogs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String logsJson = gson.toJson(LogStrings.logStringsList);
+
+        editor.putString("logs", logsJson);
+        editor.apply();
         finish();
     }
 
@@ -143,8 +165,4 @@ public class LogEditActivity extends AppCompatActivity {
         });
         builder.show();
     }
-    public void setDistance() { distance = Integer.parseInt(distanceText.toString()); }
-    public void setHour() { hour = Integer.parseInt(hourInputText.toString()); }
-    public void setMinute() { minute = Integer.parseInt(minuteInputText.toString()); }
-    public void setSecond() { second = Integer.parseInt(secondInputText.toString()); }
 }

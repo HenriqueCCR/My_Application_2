@@ -17,11 +17,13 @@ import java.util.List;
 public class CalendarUtils {
     public static LocalDate selectedDate;
 
-    private static final String SHARED_PREF_NAME = "MyEvents";
+    private static final String SHARED_PREF_EVENTS = "MyEvents";
     private static final String EVENTS_KEY = "events";
+    private static final String SHARED_PREF_LOGS = "MyLogs";
+    private static final String LOGS_KEY = "logs";
 
     public static ArrayList<EventStrings> getStoredEvents(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_EVENTS, Context.MODE_PRIVATE);
         String eventsJson = sharedPreferences.getString(EVENTS_KEY, null);
 
         // If no data is stored - return empty list
@@ -32,6 +34,20 @@ public class CalendarUtils {
         Gson gson = new Gson();
         Type eventType = new TypeToken<List<EventStrings>>() {}.getType();
         return gson.fromJson(eventsJson, eventType);
+    }
+
+    public static ArrayList<LogStrings> getStoredLogs(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_LOGS, Context.MODE_PRIVATE);
+        String logsJson = sharedPreferences.getString(LOGS_KEY, null);
+
+        // If no data is stored - return empty list
+        if (logsJson == null) {
+            return new ArrayList<>();
+        }
+
+        Gson gson = new Gson();
+        Type logType = new TypeToken<List<LogStrings>>() {}.getType();
+        return gson.fromJson(logsJson, logType);
     }
 
     public static String formattedDated(LocalDate date) { // Returns formatted date

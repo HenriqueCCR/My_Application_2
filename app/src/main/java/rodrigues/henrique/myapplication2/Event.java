@@ -32,7 +32,6 @@ public class Event {
     private String time;
     private boolean visible;
 
-
     public Event(String name, LocalDate date, String time, boolean visible) {
         this.name = name;
         this.date = date;
