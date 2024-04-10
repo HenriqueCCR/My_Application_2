@@ -81,11 +81,23 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
         for (EventStrings event : storedEvents) {
-            //LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy"))
-            if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
-                //event.setDate(CalendarUtils.selectedDate);
-                Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
-                dailyEvents.add(newEvent);
+            try{
+                /*if(event.getTime().equals(dailyEvents.get(0).getTime())) {
+                    continue;
+                }*/
+                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                    Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
+                    dailyEvents.add(newEvent);
+                }
+            }
+            catch (Exception e) {
+                // Empty dailyEvents Array
+                System.out.println("Empty dailyEvents array - could not index");
+
+                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                    Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
+                    dailyEvents.add(newEvent);
+                }
             }
         }
 

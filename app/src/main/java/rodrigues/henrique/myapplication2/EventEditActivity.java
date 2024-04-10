@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -100,6 +101,15 @@ public class EventEditActivity extends AppCompatActivity {
 
         // Create string copy for Json
         EventStrings newEventStrings = new EventStrings(eventName, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true");
+
+        // If stored events already exist add new event to current list
+        ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
+        if (CalendarUtils.getStoredEvents(this).size() > 0) {
+            for (EventStrings event : storedEvents) {
+                EventStrings.eventsStringsList.add(event);
+            }
+        }
+
         EventStrings.eventsStringsList.add(newEventStrings);
 
         // Get SharedPreferences instance
@@ -108,21 +118,20 @@ public class EventEditActivity extends AppCompatActivity {
         // Get the SharedPreferences editor to edit data
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if (sharedPreferences.contains("events")) {
-            editor.remove("events");
-            editor.apply();
-        }
-        else{
-            // Convert the eventsList to a String using Gson
-            Gson gson = new Gson();
+        // Convert the eventsList to a String using Gson
+        Gson gson = new Gson();
 
-            //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
-            String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
+        //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
+        String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
 
-            // Store the eventsJson string in SharedPreferences
-            editor.putString("events", eventsJson);
-            editor.apply(); // Might need to clear past instances of saved data - loading Json files that aren't there
-        }
+        // Getting existing events
+        //String existingEvents = sharedPreferences.getString(SharedPreferences.EVENTS_KEY, ""); // FIX THIS
+        //Append new event to existing events
+        //existingEvents += newEventStrings;
+
+        // Store the eventsJson string in SharedPreferences
+        editor.putString("events", eventsJson);
+        editor.apply();
 
         finish();
     }

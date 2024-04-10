@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class EventStrings {
 
-    public static ArrayList<EventStrings> eventsStringsList = new ArrayList<>();
+    public static ArrayList<EventStrings> eventsStringsList = new ArrayList<EventStrings>();
 
     public static ArrayList<EventStrings> eventsForDate(LocalDate date){ // Can use this method to return all events from specific date
         ArrayList<EventStrings> events = new ArrayList<>();
