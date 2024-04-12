@@ -98,7 +98,7 @@ public class LogEditActivity extends AppCompatActivity {
                     alertWindowButtons(builder);
                 }
                 else{
-                    saveEventAction(view);
+                    saveLogAction(view);
                 }
             }
         });
@@ -122,13 +122,14 @@ public class LogEditActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
     }
 
-    public void saveEventAction(View view) {
+    public void saveLogAction(View view) {
         String logName = chosenItem;
+        distance = Double.parseDouble(distanceText.getText().toString());
         time = hourInputText.getText().toString() + ":" + minuteInputText.getText().toString() + ":" + secondInputText.getText().toString(); // Saving EditText fields directly into time variable
         Logg newLogg = new Logg(logName,Double.parseDouble(distanceText.getText().toString()), CalendarUtils.selectedDate, time);
         Logg.loggEventsList.add(newLogg);
 
-        LogStrings newLogStrings = new LogStrings(logName, Double.toString(distance), CalendarUtils.formattedDated(CalendarUtils.selectedDate), time);
+        LogStrings newLogStrings = new LogStrings(logName, String.valueOf(distance), CalendarUtils.formattedDated(CalendarUtils.selectedDate), time);
 
         ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(this);
         if (CalendarUtils.getStoredLogs(this).size() >0) {

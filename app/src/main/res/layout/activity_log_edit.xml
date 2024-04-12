@@ -135,7 +135,7 @@
         android:textColor="@color/white"
         android:background="@null"
         android:textStyle="bold"
-        android:onClick="saveEventAction"
+        android:onClick="saveLogAction"
         android:layout_gravity="center"
         android:textSize="20sp"/>
     <!-- onClick Not called directly anymore -->

@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
     private ListView logListView;
+    private Object chosenItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,14 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         Log.i("Activity Lifecycle","onCreate");
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
+
+        logListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                chosenItem = adapterView.getItemAtPosition(i);
+                removeItem(chosenItem);
+            }
+        });
     }
     protected  void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
@@ -128,6 +138,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
         logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
         logListView.setAdapter(logAdapter);
+    }
+
+    public void removeItem(Object removeItem){
+        ArrayList<LogStrings> storedLog = CalendarUtils.getStoredLogs(this);
+        storedLog.remove(removeItem);
+
+        setLogAdapter();
     }
 
     public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); }
