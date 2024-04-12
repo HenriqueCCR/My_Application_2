@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private ListView eventListView;
     private ListView logListView;
     private Object chosenItem;
+    private TextView alertTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,17 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 chosenItem = adapterView.getItemAtPosition(i);
                 removeItem(chosenItem);
+            }
+        });
+        logListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CalendarActivity.this);
+
+                builder.setCancelable(true);
+                builder.setTitle("Make your choice!");
+                builder.setMessage("Please select an option");
+                alertWindowButtons(builder);
             }
         });
     }
@@ -108,5 +122,22 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); }
     public void newLogAction(View view) {
         startActivity(new Intent(this, LogEditActivity.class));
+    }
+
+    public void alertWindowButtons(AlertDialog.Builder builder) {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alertTextView.setVisibility(View.VISIBLE);
+            }
+        });
+        builder.show();
     }
 }
