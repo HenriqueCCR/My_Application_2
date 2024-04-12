@@ -113,30 +113,11 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     }
 
     private void setLogAdapter() {
-        // Log class clashes with util Logs
-        ArrayList<Logg> dailyLoggs = Logg.logsForDate(CalendarUtils.selectedDate);
+        // Log class clashes with util Logs so changed it to Logg
+        ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(this);
+
+        ArrayList<Logg> dailyLoggs = LogStrings.logsForDate(storedLogs, CalendarUtils.selectedDate);
         LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
-        logListView.setAdapter(logAdapter);
-
-        ArrayList<LogStrings> storedLog = CalendarUtils.getStoredLogs(this);
-        for (LogStrings log : storedLog) {
-            try{
-                if(LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
-                    Logg newLog = new Logg(log.getName(), Double.parseDouble(log.getDistance()), LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), log.getTime());
-                    dailyLoggs.add(newLog);
-                }
-            }
-            catch (Exception e) {
-                System.out.println("Empty dailyLoggs array - could not index");
-
-                if(LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
-                    Logg newLog = new Logg(log.getName(), Double.parseDouble(log.getDistance()), LocalDate.parse(log.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), log.getTime());
-                    dailyLoggs.add(newLog);
-                }
-            }
-        }
-
-        logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
         logListView.setAdapter(logAdapter);
     }
 

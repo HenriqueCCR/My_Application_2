@@ -1,18 +1,20 @@
 package rodrigues.henrique.myapplication2;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LogStrings {
 
     public static ArrayList<LogStrings> logStringsList = new ArrayList<>();
 
-    public static ArrayList<LogStrings> logsForDate(LocalDate date){
-        ArrayList<LogStrings> logs = new ArrayList<>();
+    public static ArrayList<Logg> logsForDate( ArrayList<LogStrings> storedLogs, LocalDate date){
+        ArrayList<Logg> logs = new ArrayList<>();
 
-        for(LogStrings log : logStringsList){
-            if(log.getDate().equals(date)){
-                logs.add(log);
+        for(int i = 0; i < storedLogs.size(); i++) {
+            if(LocalDate.parse(storedLogs.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+                Logg newLog = new Logg(storedLogs.get(i).getName(), Double.parseDouble(storedLogs.get(i).getDistance()), LocalDate.parse(storedLogs.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), storedLogs.get(i).getTime());
+                logs.add(newLog);
             }
         }
         return logs;
