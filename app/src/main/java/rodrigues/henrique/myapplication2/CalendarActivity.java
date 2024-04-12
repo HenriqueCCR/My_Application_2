@@ -82,33 +82,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     }
 
     private void setEventAdapter() {
-        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
-        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
-        eventListView.setAdapter(eventAdapter);
-
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
-        for (EventStrings event : storedEvents) {
-            try{
-                /*if(event.getTime().equals(dailyEvents.get(0).getTime())) {
-                    continue;
-                }*/
-                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
-                    Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
-                    dailyEvents.add(newEvent);
-                }
-            }
-            catch (Exception e) {
-                // Empty dailyEvents Array
-                System.out.println("Empty dailyEvents array - could not index");
 
-                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
-                    Event newEvent = new Event(event.getName(), LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), event.getTime(), Boolean.parseBoolean(event.getVisibility()));
-                    dailyEvents.add(newEvent);
-                }
-            }
-        }
-
-        eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        ArrayList<Event> dailyEvents = EventStrings.eventsForDate(storedEvents, CalendarUtils.selectedDate);
+        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
     }
 

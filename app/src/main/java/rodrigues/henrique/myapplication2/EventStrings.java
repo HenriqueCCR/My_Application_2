@@ -8,18 +8,20 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class EventStrings {
 
     public static ArrayList<EventStrings> eventsStringsList = new ArrayList<EventStrings>();
 
-    public static ArrayList<EventStrings> eventsForDate(LocalDate date){ // Can use this method to return all events from specific date
-        ArrayList<EventStrings> events = new ArrayList<>();
+    public static ArrayList<Event> eventsForDate(ArrayList<EventStrings> storedEvents, LocalDate localDate){
+        ArrayList<Event> events = new ArrayList<>();
 
-        for(EventStrings event : eventsStringsList){
-            if(event.getDate().equals(date)){
-                events.add(event);
+        for(int i = 0; i < storedEvents.size(); i++) {
+            if(LocalDate.parse(storedEvents.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(localDate)){
+                Event newEvent = new Event(storedEvents.get(i).getName(), LocalDate.parse(storedEvents.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), storedEvents.get(i).getTime(), Boolean.parseBoolean(storedEvents.get(i).getVisibility()));
+                events.add(newEvent);
             }
         }
         return events;

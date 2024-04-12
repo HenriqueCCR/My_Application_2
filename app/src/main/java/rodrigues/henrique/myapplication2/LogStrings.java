@@ -8,11 +8,11 @@ public class LogStrings {
 
     public static ArrayList<LogStrings> logStringsList = new ArrayList<>();
 
-    public static ArrayList<Logg> logsForDate( ArrayList<LogStrings> storedLogs, LocalDate date){
+    public static ArrayList<Logg> logsForDate(ArrayList<LogStrings> storedLogs, LocalDate localDate){
         ArrayList<Logg> logs = new ArrayList<>();
 
         for(int i = 0; i < storedLogs.size(); i++) {
-            if(LocalDate.parse(storedLogs.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate)){
+            if(LocalDate.parse(storedLogs.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(localDate)){
                 Logg newLog = new Logg(storedLogs.get(i).getName(), Double.parseDouble(storedLogs.get(i).getDistance()), LocalDate.parse(storedLogs.get(i).getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")), storedLogs.get(i).getTime());
                 logs.add(newLog);
             }
