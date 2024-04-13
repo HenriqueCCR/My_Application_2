@@ -122,7 +122,7 @@ public class EventEditActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
-        String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Originally: String eventsJson = gson.toJson(Event.eventsList);
+        String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Change EventStrings.eventsStringsList to storedEvents
 
         // Store the eventsJson string in SharedPreferences
         editor.putString("events", eventsJson);
