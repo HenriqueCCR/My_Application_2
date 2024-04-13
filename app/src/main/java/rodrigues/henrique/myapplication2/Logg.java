@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Logg {
 
-    public static ArrayList<Logg> loggEventsList = new ArrayList<>();
+    /*public static ArrayList<Logg> loggEventsList = new ArrayList<>();
 
     public static ArrayList<Logg> logsForDate(LocalDate date){
         ArrayList<Logg> loggs = new ArrayList<>();
@@ -16,7 +16,7 @@ public class Logg {
             }
         }
         return loggs;
-    }
+    }*/
 
     private String name;
     private LocalDate date;

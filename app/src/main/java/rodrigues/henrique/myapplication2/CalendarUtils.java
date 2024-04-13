@@ -51,7 +51,7 @@ public class CalendarUtils {
     }
 
     public static void removeLog(Context context, Logg loggToRemove) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("MyLogs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_LOGS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         //Convert Logg to loggStrings for JSON
@@ -61,17 +61,21 @@ public class CalendarUtils {
                                                 loggToRemove.getTime());
 
         // Get Loggs
-        //ArrayList<LogStrings> storedLogs = getStoredLogs(context);
+        ArrayList<LogStrings> storedLogs = getStoredLogs(context);
+
         // Delete log
-        //storedLogs.remove(loggToRemoveConverted);
-        LogStrings.logStringsList.remove(loggToRemoveConverted);
+        for(int i = 0; i < storedLogs.size(); i++) {
+            if (storedLogs.get(i).getDate().equals(loggToRemoveConverted.getDate()) && storedLogs.get(i).getName().equals(loggToRemoveConverted.getName())) {
+                storedLogs.remove(i);
+            }
+        }
 
         // Convert updated list to JSON
         Gson gson = new Gson();
-        String updatedLogsJson = gson.toJson(LogStrings.logStringsList);
+        String updatedLogsJson = gson.toJson(storedLogs);
 
         // Save updated lst back to SharedPreferences
-        editor.putString("logs", updatedLogsJson);
+        editor.putString(LOGS_KEY, updatedLogsJson);
         editor.apply();
     }
 

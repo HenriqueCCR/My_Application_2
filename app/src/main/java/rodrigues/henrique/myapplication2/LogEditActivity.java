@@ -129,8 +129,6 @@ public class LogEditActivity extends AppCompatActivity {
         time = hourInputText.getText().toString() + ":" + minuteInputText.getText().toString() + ":" + secondInputText.getText().toString(); // Saving EditText fields directly into time variable
 
         // Create new Logg variable and add to log
-        Logg newLogg = new Logg(logName,Double.parseDouble(distanceText.getText().toString()), CalendarUtils.selectedDate, time);
-        Logg.loggEventsList.add(newLogg);
 
         LogStrings newLogStrings = new LogStrings(logName, String.valueOf(distance), CalendarUtils.formattedDated(CalendarUtils.selectedDate), time);
 
