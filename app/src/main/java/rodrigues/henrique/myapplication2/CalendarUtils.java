@@ -50,6 +50,31 @@ public class CalendarUtils {
         return gson.fromJson(logsJson, logType);
     }
 
+    public static void removeLog(Context context, Logg loggToRemove) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyLogs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        //Convert Logg to loggStrings for JSON
+        LogStrings loggToRemoveConverted = new LogStrings(loggToRemove.getName(),
+                                                String.valueOf(loggToRemove.getDistance()),
+                                                CalendarUtils.formattedDated(loggToRemove.getDate()),
+                                                loggToRemove.getTime());
+
+        // Get Loggs
+        //ArrayList<LogStrings> storedLogs = getStoredLogs(context);
+        // Delete log
+        //storedLogs.remove(loggToRemoveConverted);
+        LogStrings.logStringsList.remove(loggToRemoveConverted);
+
+        // Convert updated list to JSON
+        Gson gson = new Gson();
+        String updatedLogsJson = gson.toJson(LogStrings.logStringsList);
+
+        // Save updated lst back to SharedPreferences
+        editor.putString("logs", updatedLogsJson);
+        editor.apply();
+    }
+
     public static String formattedDated(LocalDate date) { // Returns formatted date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy"); //Day Month Year
         return date.format(formatter);

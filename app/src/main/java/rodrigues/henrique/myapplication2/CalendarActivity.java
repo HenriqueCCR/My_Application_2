@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
     private TextView monthYearText;
@@ -29,6 +31,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private ListView logListView;
     private Object chosenItem;
     private TextView alertTextView;
+    Toast t; // double check
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +42,26 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
 
+        final Context context = this;
+
         logListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 chosenItem = adapterView.getItemAtPosition(i);
-                removeItem(chosenItem);
-            }
-        });
-        logListView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CalendarActivity.this);
+                Logg log = (Logg) chosenItem;
 
-                builder.setCancelable(true);
-                builder.setTitle("Make your choice!");
-                builder.setMessage("Please select an option");
-                alertWindowButtons(builder);
+                String toast = "Clicked on Logg item: " + log.getName() + " " + log.getDistance() + " KM";
+                makeToast(toast);
+
+                CalendarUtils.removeLog(context, log);
+                setLogAdapter();
             }
         });
+    }
+    private void makeToast (String s) {
+        if (t != null) t.cancel();
+        t = Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT);
+        t.show();
     }
     protected  void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
@@ -110,13 +115,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         ArrayList<Logg> dailyLoggs = LogStrings.logsForDate(storedLogs, CalendarUtils.selectedDate);
         LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
         logListView.setAdapter(logAdapter);
-    }
-
-    public void removeItem(Object removeItem){
-        ArrayList<LogStrings> storedLog = CalendarUtils.getStoredLogs(this);
-        storedLog.remove(removeItem);
-
-        setLogAdapter();
     }
 
     public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); }
