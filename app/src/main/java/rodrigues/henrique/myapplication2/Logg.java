@@ -4,20 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Logg {
-
-    /*public static ArrayList<Logg> loggEventsList = new ArrayList<>();
-
-    public static ArrayList<Logg> logsForDate(LocalDate date){
-        ArrayList<Logg> loggs = new ArrayList<>();
-
-        for(Logg logg : loggEventsList){
-            if(logg.getDate().equals(date)){
-                loggs.add(logg);
-            }
-        }
-        return loggs;
-    }*/
-
     private String name;
     private LocalDate date;
     private String time;

@@ -130,7 +130,10 @@ public class LogEditActivity extends AppCompatActivity {
 
         // Create new Logg variable and add to log
 
-        LogStrings newLogStrings = new LogStrings(logName, String.valueOf(distance), CalendarUtils.formattedDated(CalendarUtils.selectedDate), time);
+        LogStrings newLogStrings = new LogStrings(logName,
+                                                    String.valueOf(distance),
+                                                    CalendarUtils.formattedDated(CalendarUtils.selectedDate),
+                                                    time);
 
         ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(this);
         if (CalendarUtils.getStoredLogs(this).size() >0) {

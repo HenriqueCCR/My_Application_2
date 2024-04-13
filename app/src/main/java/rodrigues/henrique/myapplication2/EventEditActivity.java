@@ -95,13 +95,12 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         String eventName = chosenItem;
-        //LocalDate date = CalendarUtils.selectedDate;
-        //String stringDate = CalendarUtils.formattedDated(date);
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time, true);
-        Event.eventsList.add(newEvent);
 
         // Create string copy for Json
-        EventStrings newEventStrings = new EventStrings(eventName, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true");
+        EventStrings newEventStrings = new EventStrings(eventName,
+                                                            CalendarUtils.formattedDated(CalendarUtils.selectedDate),
+                                                            time,
+                                                            "true");
 
         // If stored events already exist add new event to current list
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);

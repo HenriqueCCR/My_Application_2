@@ -13,20 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
-
-    public static ArrayList<Event> eventsList = new ArrayList<>();
-
-    public static ArrayList<Event> eventsForDate(LocalDate date){
-        ArrayList<Event> events = new ArrayList<>();
-
-        for(Event event : eventsList){
-            if(event.getDate().equals(date)){
-                events.add(event);
-            }
-        }
-        return events;
-    }
-
     private String name;
     private LocalDate date;
     private String time;

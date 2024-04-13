@@ -30,7 +30,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private ListView eventListView;
     private ListView logListView;
     private Object chosenItem;
-    private TextView alertTextView;
     Toast t; // double check
 
     @Override
@@ -44,6 +43,19 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
         final Context context = this;
 
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                chosenItem = adapterView.getItemAtPosition(i);
+                Event event = (Event) chosenItem;
+
+                String toast = "Clicked on Event item: " + event.getName() + " " + event.getTime();
+                makeToast(toast);
+
+                CalendarUtils.removeEvent(context, event);
+                setEventAdapter();
+            }
+        });
         logListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -117,25 +129,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         logListView.setAdapter(logAdapter);
     }
 
-    public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); }
-    public void newLogAction(View view) {
-        startActivity(new Intent(this, LogEditActivity.class));
-    }
-
-    public void alertWindowButtons(AlertDialog.Builder builder) {
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                alertTextView.setVisibility(View.VISIBLE);
-            }
-        });
-        builder.show();
-    }
+    public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); setEventAdapter();}
+    public void newLogAction(View view) { startActivity(new Intent(this, LogEditActivity.class)); setLogAdapter();}
 }

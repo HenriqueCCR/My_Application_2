@@ -35,6 +35,34 @@ public class CalendarUtils {
         Type eventType = new TypeToken<List<EventStrings>>() {}.getType();
         return gson.fromJson(eventsJson, eventType);
     }
+    public static void removeEvent(Context context, Event eventToRemove) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_EVENTS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        //Convert Logg to loggStrings for JSON
+        EventStrings eventToRemoveConverted = new EventStrings(eventToRemove.getName(),
+                                                    CalendarUtils.formattedDated(eventToRemove.getDate()),
+                                                    eventToRemove.getTime(),
+                                                    String.valueOf(eventToRemove.getVisibility()));
+
+        // Get Loggs
+        ArrayList<EventStrings> storedEvents = getStoredEvents(context);
+
+        // Delete log
+        for(int i = 0; i < storedEvents.size(); i++) {
+            if (storedEvents.get(i).getDate().equals(eventToRemoveConverted.getDate()) && storedEvents.get(i).getName().equals(eventToRemoveConverted.getName())) {
+                storedEvents.remove(i);
+            }
+        }
+
+        // Convert updated list to JSON
+        Gson gson = new Gson();
+        String updatedEventsJson = gson.toJson(storedEvents);
+
+        // Save updated lst back to SharedPreferences
+        editor.putString(EVENTS_KEY, updatedEventsJson);
+        editor.apply();
+    }
 
     public static ArrayList<LogStrings> getStoredLogs(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_LOGS, Context.MODE_PRIVATE);
