@@ -16,10 +16,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +39,7 @@ public class EventEditActivity extends AppCompatActivity {
     private Button saveButton;
     Button timeButton;
     int hour, minute;
+    Toast t; // double check
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,15 +105,16 @@ public class EventEditActivity extends AppCompatActivity {
                                                             time,
                                                             "true");
 
-        // If stored events already exist add new event to current list
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
-        if (CalendarUtils.getStoredEvents(this).size() > 0) {
-            for (EventStrings event : storedEvents) {
-                EventStrings.eventsStringsList.add(event);
+        //Check if event already exists
+        for(EventStrings event : storedEvents) {
+            if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate) && event.getTime().equals(newEventStrings.getTime())) {
+                makeToast("Oops! Event already exists for " + newEventStrings.getTime());
+                return; //If event already exists return without doing anything
             }
         }
 
-        EventStrings.eventsStringsList.add(newEventStrings);
+        storedEvents.add(newEventStrings);
 
         // Get SharedPreferences instance
         SharedPreferences sharedPreferences = getSharedPreferences("MyEvents", Context.MODE_PRIVATE); // Saves all variables into String format - but can't save LocalDate into regular String only "00 00 0000"
@@ -122,7 +126,7 @@ public class EventEditActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
-        String eventsJson = gson.toJson(EventStrings.eventsStringsList); // Change EventStrings.eventsStringsList to storedEvents
+        String eventsJson = gson.toJson(storedEvents); // Change EventStrings.eventsStringsList to storedEvents
 
         // Store the eventsJson string in SharedPreferences
         editor.putString("events", eventsJson);
@@ -165,5 +169,10 @@ public class EventEditActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+    private void makeToast (String s) {
+        if (t != null) t.cancel();
+        t = Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT);
+        t.show();
     }
 }

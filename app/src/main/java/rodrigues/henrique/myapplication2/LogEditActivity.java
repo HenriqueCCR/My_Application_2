@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LogEditActivity extends AppCompatActivity {
@@ -129,25 +131,20 @@ public class LogEditActivity extends AppCompatActivity {
         time = hourInputText.getText().toString() + ":" + minuteInputText.getText().toString() + ":" + secondInputText.getText().toString(); // Saving EditText fields directly into time variable
 
         // Create new Logg variable and add to log
-
         LogStrings newLogStrings = new LogStrings(logName,
                                                     String.valueOf(distance),
                                                     CalendarUtils.formattedDated(CalendarUtils.selectedDate),
                                                     time);
 
         ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(this);
-        if (CalendarUtils.getStoredLogs(this).size() >0) {
-            for (LogStrings log : storedLogs){
-                LogStrings.logStringsList.add(log);
-            }
-        }
 
-        LogStrings.logStringsList.add(newLogStrings);
+        storedLogs.add(newLogStrings);
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyLogs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         Gson gson = new Gson();
-        String logsJson = gson.toJson(LogStrings.logStringsList);
+        String logsJson = gson.toJson(storedLogs);
 
         editor.putString("logs", logsJson);
         editor.apply();

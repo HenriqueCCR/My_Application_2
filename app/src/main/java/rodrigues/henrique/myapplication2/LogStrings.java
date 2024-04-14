@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class LogStrings {
 
-    public static ArrayList<LogStrings> logStringsList = new ArrayList<>();
+    //public static ArrayList<LogStrings> logStringsList = new ArrayList<>();
 
     public static ArrayList<Logg> logsForDate(ArrayList<LogStrings> storedLogs, LocalDate localDate){
         ArrayList<Logg> logs = new ArrayList<>();
