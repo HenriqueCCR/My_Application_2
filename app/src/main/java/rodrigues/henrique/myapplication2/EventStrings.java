@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class EventStrings {
 
-    public static ArrayList<EventStrings> eventsStringsList = new ArrayList<EventStrings>();
-
     public static ArrayList<Event> eventsForDate(ArrayList<EventStrings> storedEvents, LocalDate localDate){
         ArrayList<Event> events = new ArrayList<>();
 
