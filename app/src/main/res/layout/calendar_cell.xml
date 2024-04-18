@@ -23,8 +23,8 @@
 
     <Button
         android:id="@+id/logCircle"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="#0E86D4"
@@ -36,11 +36,11 @@
         app:layout_constraintVertical_bias="0.25"/>
     <Button
         android:id="@+id/eventCircle"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
         android:layout_gravity="center"
         android:layout_marginTop="28dp"
-        android:background="#5CFF5C"
+        android:background="@color/lightBlue"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private ListView eventListView;
     private ListView logListView;
     private Object chosenItem;
+    private Button eventCircle;
     Toast t; // double check
 
     @Override
@@ -49,7 +51,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
                 chosenItem = adapterView.getItemAtPosition(i);
                 Event event = (Event) chosenItem;
 
-                String toast = "Clicked on Event item: " + event.getName() + " " + event.getTime();
+                String toast = "Deleted Event item: " + event.getName() + " " + event.getTime();
                 makeToast(toast);
 
                 CalendarUtils.removeEvent(context, event);
@@ -62,7 +64,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
                 chosenItem = adapterView.getItemAtPosition(i);
                 Logg log = (Logg) chosenItem;
 
-                String toast = "Clicked on Logg item: " + log.getName() + " " + log.getDistance() + " KM";
+                String toast = "Deleted Log item: " + log.getName() + " " + log.getDistance() + " KM";
                 makeToast(toast);
 
                 CalendarUtils.removeLog(context, log);
@@ -80,6 +82,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         monthYearText = findViewById(R.id.monthYearTextView);
         eventListView = findViewById(R.id.eventListView);
         logListView = findViewById(R.id.logListView);
+        eventCircle = findViewById(R.id.eventCircle);
     }
 
     protected void setMonthView() {
@@ -112,10 +115,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    private void setEventAdapter() {
+    public void setEventAdapter() {
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
 
         ArrayList<Event> dailyEvents = EventStrings.eventsForDate(storedEvents, CalendarUtils.selectedDate);
+        /*for(EventStrings event: storedEvents) { // Need to create visual aid to identify when event exists for specific date
+            eventCircle.setVisibility(View.VISIBLE);
+        }*/
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
     }
@@ -129,6 +135,9 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         logListView.setAdapter(logAdapter);
     }
 
-    public void newEventAction(View view) { startActivity(new Intent(this, EventEditActivity.class)); setEventAdapter();}
+    public void newEventAction(View view) {
+        startActivity(new Intent(this, EventEditActivity.class));
+        setEventAdapter();
+    }
     public void newLogAction(View view) { startActivity(new Intent(this, LogEditActivity.class)); setLogAdapter();}
 }
