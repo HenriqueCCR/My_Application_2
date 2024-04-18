@@ -12,33 +12,36 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 public class EventEditActivity extends AppCompatActivity {
-    private TextView eventDateTextView;
-    private TextView selectedTimeTextView;
-    private TextView alertTextView;
+    private TextView eventDateTextView, selectedTimeTextView, alertTextView;
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapterItems;
     private String[] runItemsList;
     private String time;
-    private String chosenItem;
+    private String chosenItem, chosenDay;
     private Button saveButton;
-    Button timeButton;
+    Button timeButton, repeatingEventButton;
+    private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     int hour, minute;
+    boolean repeatEvent;
     Toast t; // double check
 
     @Override
@@ -58,6 +61,11 @@ public class EventEditActivity extends AppCompatActivity {
                 chosenItem = adapterView.getItemAtPosition(i).toString();
             }
         });
+
+        if (repeatEvent) {
+
+        }
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,45 +102,59 @@ public class EventEditActivity extends AppCompatActivity {
         runItemsList = getResources().getStringArray(R.array.runTypes);
         saveButton = findViewById(R.id.saveButton);
         timeButton = findViewById(R.id.timeButton);
+        repeatingEventButton = findViewById(R.id.repeatEventButton);
+        monday = findViewById(R.id.mondayCheck);
+        tuesday = findViewById(R.id.tuesdayCheck);
+        wednesday = findViewById(R.id.wednesdayCheck);
+        thursday = findViewById(R.id.thursdayCheck);
+        friday = findViewById(R.id.fridayCheck);
+        saturday = findViewById(R.id.saturdayCheck);
+        sunday = findViewById(R.id.sundayCheck);
+        repeatEvent = false;
     }
 
     public void saveEventAction(View view) {
+        ArrayList<String> dates = new ArrayList<>();
+        dates = CalendarUtils.getRepeatedDates(monday, tuesday, wednesday, thursday, friday, saturday, sunday); // get dates Strings
+
+        // Need to create Try Catch for when user has clicked REPEAT but no boxes ticked
         String eventName = chosenItem;
+        for(String date: dates) {
+            // Create string copy for Json
+            EventStrings newEventStrings = new EventStrings(eventName,
+                    date,
+                    time,
+                    "true");
 
-        // Create string copy for Json
-        EventStrings newEventStrings = new EventStrings(eventName,
-                                                            CalendarUtils.formattedDated(CalendarUtils.selectedDate),
-                                                            time,
-                                                            "true");
-
-        ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
-        //Check if event already exists
-        for(EventStrings event : storedEvents) {
-            if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate) && event.getTime().equals(newEventStrings.getTime())) {
-                makeToast("Oops! Event already exists for " + newEventStrings.getTime());
-                return; //If event already exists return without doing anything
+            ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
+            //Check if event already exists
+            for(EventStrings event : storedEvents) {
+                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate) && event.getTime().equals(newEventStrings.getTime())) {
+                    makeToast("Oops! Event already exists for " + newEventStrings.getTime());
+                    return; //If event already exists return without doing anything
+                }
             }
+
+            storedEvents.add(newEventStrings);
+
+            // Get SharedPreferences instance
+            SharedPreferences sharedPreferences = getSharedPreferences("MyEvents", Context.MODE_PRIVATE); // Saves all variables into String format - but can't save LocalDate into regular String only "00 00 0000"
+
+            // Get the SharedPreferences editor to edit data
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            // Convert the eventsList to a String using Gson
+            Gson gson = new Gson();
+
+            //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
+            String eventsJson = gson.toJson(storedEvents); // Change EventStrings.eventsStringsList to storedEvents
+
+            // Store the eventsJson string in SharedPreferences
+            editor.putString("events", eventsJson);
+            editor.apply();
+
+            finish();
         }
-
-        storedEvents.add(newEventStrings);
-
-        // Get SharedPreferences instance
-        SharedPreferences sharedPreferences = getSharedPreferences("MyEvents", Context.MODE_PRIVATE); // Saves all variables into String format - but can't save LocalDate into regular String only "00 00 0000"
-
-        // Get the SharedPreferences editor to edit data
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        // Convert the eventsList to a String using Gson
-        Gson gson = new Gson();
-
-        //ArrayList<String> forEventsJson = new ArrayList<>(Arrays.asList(chosenItem, CalendarUtils.formattedDated(CalendarUtils.selectedDate), time, "true"));
-        String eventsJson = gson.toJson(storedEvents); // Change EventStrings.eventsStringsList to storedEvents
-
-        // Store the eventsJson string in SharedPreferences
-        editor.putString("events", eventsJson);
-        editor.apply();
-
-        finish();
     }
 
     public void popTimePicker(View view){
@@ -152,6 +174,31 @@ public class EventEditActivity extends AppCompatActivity {
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
+    }
+
+    public void setRepeatEvent(View view) {
+        if (repeatEvent) {
+            repeatEvent = false;
+            repeatingEventButton.setBackgroundColor(getResources().getColor(R.color.darkGray)); // Grey out the button
+            monday.setEnabled(false);
+            tuesday.setEnabled(false);
+            wednesday.setEnabled(false);
+            thursday.setEnabled(false);
+            friday.setEnabled(false);
+            saturday.setEnabled(false);
+            sunday.setEnabled(false);
+        }
+        else {
+            repeatEvent = true;
+            repeatingEventButton.setBackgroundColor(getResources().getColor(R.color.lightBlue)); // GIve button colour to indicate active
+            monday.setEnabled(true);
+            tuesday.setEnabled(true);
+            wednesday.setEnabled(true);
+            thursday.setEnabled(true);
+            friday.setEnabled(true);
+            saturday.setEnabled(true);
+            sunday.setEnabled(true);
+        }
     }
 
     public void alertWindowButtons(AlertDialog.Builder builder) {

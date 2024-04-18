@@ -2,6 +2,7 @@ package rodrigues.henrique.myapplication2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.CheckBox;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class CalendarUtils {
@@ -159,5 +161,144 @@ public class CalendarUtils {
         }
 
         return null;
+    }
+    public static int getMonthInt(String month){
+        switch(month) {
+            case "JANUARY":
+                return 1;
+            case "FEBRUARY":
+                return 2;
+            case "MARCH":
+                return 3;
+            case "APRIL":
+                return 4;
+            case "MAY":
+                return 5;
+            case "JUNE":
+                return 6;
+            case "JULY":
+                return 7;
+            case "AUGUST":
+                return 8;
+            case "SEPTEMBER":
+                return 9;
+            case "OCTOBER":
+                return 10;
+            case "NOVEMBER":
+                return 11;
+            case "DECEMBER":
+                return 12;
+            default:
+                return 0; //ERROR HAS OCCURRED
+        }
+    }
+    public static ArrayList<String> getRepeatedDates(CheckBox monday, CheckBox tuesday, CheckBox wednesday, CheckBox thursday, CheckBox friday, CheckBox saturday, CheckBox sunday){ // Method os unfinished
+        ArrayList<String> dates = new ArrayList<>();
+
+        Calendar startDate = Calendar.getInstance();
+        int month = getMonthInt(CalendarUtils.selectedDate.getMonth().toString()); // Get month as Int
+        startDate.set(CalendarUtils.selectedDate.getYear(), month, CalendarUtils.selectedDate.getDayOfMonth());
+
+        // Loop through each day in calendar with cloned date
+        Calendar currentDate = (Calendar) startDate.clone();
+
+        if(monday.isChecked()) { // Create multiple Events from ticked boxes
+            int i = 0;
+            while(true) {
+                // Check if current day is Monday (Calendar.Monday)
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+                    // Save date to array
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    // Move day to next day
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else if(tuesday.isChecked()) {
+            int i = 0;
+            while(true) {
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else if(wednesday.isChecked()) {
+            int i = 0;
+            while(true) {
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else if(thursday.isChecked()) {
+            int i = 0;
+            while(true) {
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else if(friday.isChecked()) {
+            int i = 0;
+            while(true) {
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else if(saturday.isChecked()) {
+            int i = 0;
+            while(true) {
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else if(sunday.isChecked()) {
+            int i = 0;
+            while(true) {
+                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
+                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
+                    i++;
+                    if(i == 4){
+                        break;
+                    }
+                }
+            }
+        }
+        else{
+            dates.add(CalendarUtils.formattedDated(CalendarUtils.selectedDate));
+        }
+        return dates;
     }
 }

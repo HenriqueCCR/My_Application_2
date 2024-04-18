@@ -78,6 +78,75 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/repeatEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:onClick="setRepeatEvent"
+        android:text="Repeat"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:background="@color/darkGray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <CheckBox
+            android:id="@+id/mondayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon"
+            android:textSize="12sp"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/tuesdayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tue"
+            android:textSize="12sp"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/wednesdayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wed"
+            android:textSize="12sp"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/thursdayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thu"
+            android:textSize="12sp"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/fridayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fri"
+            android:textSize="12sp"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/saturdayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sat"
+            android:textSize="12sp"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/sundayCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:textSize="12sp"
+            android:enabled="false"/>
+    </LinearLayout>
+
+    <Button
         android:id="@+id/saveButton"
         android:layout_margin="20dp"
         android:layout_width="wrap_content"
