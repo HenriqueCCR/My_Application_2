@@ -165,34 +165,34 @@ public class CalendarUtils {
     public static int getMonthInt(String month){
         switch(month) {
             case "JANUARY":
-                return 1;
+                return 0;
             case "FEBRUARY":
-                return 2;
+                return 1;
             case "MARCH":
-                return 3;
+                return 2;
             case "APRIL":
-                return 4;
+                return 3;
             case "MAY":
-                return 5;
+                return 4;
             case "JUNE":
-                return 6;
+                return 5;
             case "JULY":
-                return 7;
+                return 6;
             case "AUGUST":
-                return 8;
+                return 7;
             case "SEPTEMBER":
-                return 9;
+                return 8;
             case "OCTOBER":
-                return 10;
+                return 9;
             case "NOVEMBER":
-                return 11;
+                return 10;
             case "DECEMBER":
-                return 12;
+                return 11;
             default:
-                return 0; //ERROR HAS OCCURRED
+                return 12; //ERROR HAS OCCURRED
         }
     }
-    public static ArrayList<String> getRepeatedDates(CheckBox monday, CheckBox tuesday, CheckBox wednesday, CheckBox thursday, CheckBox friday, CheckBox saturday, CheckBox sunday){ // Method os unfinished
+    public static ArrayList<String> getRepeatedDates(Boolean repeat){ // Method is unfinished
         ArrayList<String> dates = new ArrayList<>();
 
         Calendar startDate = Calendar.getInstance();
@@ -202,102 +202,53 @@ public class CalendarUtils {
         // Loop through each day in calendar with cloned date
         Calendar currentDate = (Calendar) startDate.clone();
 
-        if(monday.isChecked()) { // Create multiple Events from ticked boxes
-            int i = 0;
-            while(true) {
-                // Check if current day is Monday (Calendar.Monday)
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-                    // Save date to array
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    // Move day to next day
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+        if (repeat) {
+            switch (currentDate.get(Calendar.DAY_OF_WEEK)) {
+                case Calendar.MONDAY:
+                    for(int i = 0; i < 4; i++) {
+                        // Save date to array
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH))));
+                        // Move day to next day
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
-            }
-        }
-        else if(tuesday.isChecked()) {
-            int i = 0;
-            while(true) {
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+                    break;
+                case Calendar.TUESDAY:
+                    for(int i = 0; i < 4; i++) {
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
-            }
-        }
-        else if(wednesday.isChecked()) {
-            int i = 0;
-            while(true) {
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+                    break;
+                case Calendar.WEDNESDAY:
+                    for(int i = 0; i < 4; i++) {
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
-            }
-        }
-        else if(thursday.isChecked()) {
-            int i = 0;
-            while(true) {
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+                    break;
+                case Calendar.THURSDAY:
+                    for(int i = 0; i < 4; i++) {
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
-            }
-        }
-        else if(friday.isChecked()) {
-            int i = 0;
-            while(true) {
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+                    break;
+                case Calendar.FRIDAY:
+                    for(int i = 0; i < 4; i++) {
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
-            }
-        }
-        else if(saturday.isChecked()) {
-            int i = 0;
-            while(true) {
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+                    break;
+                case Calendar.SATURDAY:
+                    for(int i = 0; i < 4; i++) {
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
-            }
-        }
-        else if(sunday.isChecked()) {
-            int i = 0;
-            while(true) {
-                if (currentDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                    dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_WEEK))));
-                    currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    i++;
-                    if(i == 4){
-                        break;
+                    break;
+                case Calendar.SUNDAY:
+                    for(int i = 0; i < 4; i++) {
+                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
+                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
                     }
-                }
+                    break;
             }
-        }
-        else{
-            dates.add(CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         }
         return dates;
     }

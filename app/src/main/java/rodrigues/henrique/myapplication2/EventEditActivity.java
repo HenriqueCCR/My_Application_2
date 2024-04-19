@@ -115,7 +115,7 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         ArrayList<String> dates = new ArrayList<>();
-        dates = CalendarUtils.getRepeatedDates(monday, tuesday, wednesday, thursday, friday, saturday, sunday); // get dates Strings
+        dates = CalendarUtils.getRepeatedDates(repeatEvent); // get dates Strings
 
         // Need to create Try Catch for when user has clicked REPEAT but no boxes ticked
         String eventName = chosenItem;
@@ -129,7 +129,7 @@ public class EventEditActivity extends AppCompatActivity {
             ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
             //Check if event already exists
             for(EventStrings event : storedEvents) {
-                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(CalendarUtils.selectedDate) && event.getTime().equals(newEventStrings.getTime())) {
+                if(LocalDate.parse(event.getDate(), DateTimeFormatter.ofPattern("dd MMMM yyyy")).equals(date) && event.getTime().equals(newEventStrings.getTime())) {
                     makeToast("Oops! Event already exists for " + newEventStrings.getTime());
                     return; //If event already exists return without doing anything
                 }
