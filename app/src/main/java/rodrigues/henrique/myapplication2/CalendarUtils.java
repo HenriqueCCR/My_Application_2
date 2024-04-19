@@ -203,51 +203,11 @@ public class CalendarUtils {
         Calendar currentDate = (Calendar) startDate.clone();
 
         if (repeat) {
-            switch (currentDate.get(Calendar.DAY_OF_WEEK)) {
-                case Calendar.MONDAY:
-                    for(int i = 0; i < 4; i++) {
-                        // Save date to array
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH))));
-                        // Move day to next day
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
-                case Calendar.TUESDAY:
-                    for(int i = 0; i < 4; i++) {
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
-                case Calendar.WEDNESDAY:
-                    for(int i = 0; i < 4; i++) {
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
-                case Calendar.THURSDAY:
-                    for(int i = 0; i < 4; i++) {
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
-                case Calendar.FRIDAY:
-                    for(int i = 0; i < 4; i++) {
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
-                case Calendar.SATURDAY:
-                    for(int i = 0; i < 4; i++) {
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
-                case Calendar.SUNDAY:
-                    for(int i = 0; i < 4; i++) {
-                        dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))));
-                        currentDate.add(Calendar.DAY_OF_MONTH, 7);
-                    }
-                    break;
+            for(int i = 0; i < 4; i++) {
+                // Save date to array
+                dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH))));
+                // Move day to next day
+                currentDate.add(Calendar.DAY_OF_MONTH, 7);
             }
         }
         return dates;
