@@ -24,17 +24,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LogEditActivity extends AppCompatActivity {
-    private TextView eventDateTextView;
-    private EditText distanceText;
-    private EditText hourInputText;
-    private EditText minuteInputText;
-    private EditText secondInputText;
-    private TextView alertTextView;
+    private TextView eventDateTextView, alertTextView;
+    private EditText distanceText, hourInputText, minuteInputText, secondInputText;
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapterItems;
     private String[] runItemsList;
-    private String time;
-    private String chosenItem;
+    private String time, chosenItem;
     private Button saveButton;
     double distance;
 

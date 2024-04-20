@@ -192,7 +192,7 @@ public class CalendarUtils {
                 return 12; //ERROR HAS OCCURRED
         }
     }
-    public static ArrayList<String> getRepeatedDates(Boolean repeat){ // Method is unfinished
+    public static ArrayList<String> getRepeatedDates(Boolean repeat, int numberOfWeeks){ // Method is unfinished
         ArrayList<String> dates = new ArrayList<>();
 
         Calendar startDate = Calendar.getInstance();
@@ -203,7 +203,7 @@ public class CalendarUtils {
         Calendar currentDate = (Calendar) startDate.clone();
 
         if (repeat) {
-            for(int i = 0; i < 4; i++) {
+            for(int i = 0; i < numberOfWeeks; i++) {
                 // Save date to array
                 dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH))));
                 // Move day to next day

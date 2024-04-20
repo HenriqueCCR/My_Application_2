@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.content.Context;
@@ -32,6 +34,7 @@ import java.util.Locale;
 
 public class EventEditActivity extends AppCompatActivity {
     private TextView eventDateTextView, selectedTimeTextView, alertTextView;
+    private EditText repeatWeeks;
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapterItems;
     private String[] runItemsList;
@@ -39,8 +42,7 @@ public class EventEditActivity extends AppCompatActivity {
     private String chosenItem, chosenDay;
     private Button saveButton;
     Button timeButton, repeatingEventButton;
-    private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    int hour, minute;
+    int hour, minute, numberOfRepeatWeeks;
     boolean repeatEvent;
     Toast t; // double check
 
@@ -99,23 +101,18 @@ public class EventEditActivity extends AppCompatActivity {
         selectedTimeTextView = findViewById(R.id.selectedTimeTextView);
         eventDateTextView.setText("Date: " + CalendarUtils.formattedDated(CalendarUtils.selectedDate));
         alertTextView = findViewById(R.id.alertTextView);
+        repeatWeeks = findViewById(R.id.repeatWeeks);
+        repeatWeeks.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "100")});
         runItemsList = getResources().getStringArray(R.array.runTypes);
         saveButton = findViewById(R.id.saveButton);
         timeButton = findViewById(R.id.timeButton);
         repeatingEventButton = findViewById(R.id.repeatEventButton);
-        monday = findViewById(R.id.mondayCheck);
-        tuesday = findViewById(R.id.tuesdayCheck);
-        wednesday = findViewById(R.id.wednesdayCheck);
-        thursday = findViewById(R.id.thursdayCheck);
-        friday = findViewById(R.id.fridayCheck);
-        saturday = findViewById(R.id.saturdayCheck);
-        sunday = findViewById(R.id.sundayCheck);
         repeatEvent = false;
     }
 
     public void saveEventAction(View view) {
         ArrayList<String> dates = new ArrayList<>();
-        dates = CalendarUtils.getRepeatedDates(repeatEvent); // get dates Strings
+        dates = CalendarUtils.getRepeatedDates(repeatEvent, Integer.parseInt(repeatWeeks.getText().toString())); // get dates Strings
 
         // Need to create Try Catch for when user has clicked REPEAT but no boxes ticked
         String eventName = chosenItem;
@@ -180,24 +177,12 @@ public class EventEditActivity extends AppCompatActivity {
         if (repeatEvent) {
             repeatEvent = false;
             repeatingEventButton.setBackgroundColor(getResources().getColor(R.color.darkGray)); // Grey out the button
-            monday.setEnabled(false);
-            tuesday.setEnabled(false);
-            wednesday.setEnabled(false);
-            thursday.setEnabled(false);
-            friday.setEnabled(false);
-            saturday.setEnabled(false);
-            sunday.setEnabled(false);
+            repeatWeeks.setEnabled(false);
         }
         else {
             repeatEvent = true;
             repeatingEventButton.setBackgroundColor(getResources().getColor(R.color.lightBlue)); // GIve button colour to indicate active
-            monday.setEnabled(true);
-            tuesday.setEnabled(true);
-            wednesday.setEnabled(true);
-            thursday.setEnabled(true);
-            friday.setEnabled(true);
-            saturday.setEnabled(true);
-            sunday.setEnabled(true);
+            repeatWeeks.setEnabled(true);
         }
     }
 
