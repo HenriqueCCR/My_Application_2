@@ -177,6 +177,7 @@ public class EventEditActivity extends AppCompatActivity {
         if (repeatEvent) {
             repeatEvent = false;
             repeatingEventButton.setBackgroundColor(getResources().getColor(R.color.darkGray)); // Grey out the button
+            repeatWeeks.setText("");
             repeatWeeks.setEnabled(false);
         }
         else {

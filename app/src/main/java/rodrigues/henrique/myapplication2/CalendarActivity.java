@@ -30,8 +30,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
     private ListView logListView;
+    private Button deleteButton;
     private Object chosenItem;
-    private Button eventCircle;
     Toast t; // double check
 
     @Override
@@ -48,13 +48,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                chosenItem = adapterView.getItemAtPosition(i);
+                /*chosenItem = adapterView.getItemAtPosition(i);
                 Event event = (Event) chosenItem;
 
                 String toast = "Deleted Event item: " + event.getName() + " " + event.getTime();
                 makeToast(toast);
 
-                CalendarUtils.removeEvent(context, event);
+                CalendarUtils.removeEvent(context, event);*/
                 setEventAdapter();
             }
         });
@@ -82,7 +82,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         monthYearText = findViewById(R.id.monthYearTextView);
         eventListView = findViewById(R.id.eventListView);
         logListView = findViewById(R.id.logListView);
-        eventCircle = findViewById(R.id.eventCircle);
+        deleteButton = findViewById(R.id.deleteButton);
     }
 
     protected void setMonthView() {
@@ -119,10 +119,9 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
 
         ArrayList<Event> dailyEvents = EventStrings.eventsForDate(storedEvents, CalendarUtils.selectedDate);
-        /*for(EventStrings event: storedEvents) { // Need to create visual aid to identify when event exists for specific date
-            eventCircle.setVisibility(View.VISIBLE);
-        }*/
+
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+
         eventListView.setAdapter(eventAdapter);
     }
 
