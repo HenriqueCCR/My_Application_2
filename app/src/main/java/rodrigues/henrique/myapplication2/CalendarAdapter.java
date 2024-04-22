@@ -72,6 +72,22 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
                 }
             }
 
+            ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(context);
+            for(int i = 0; i < storedLogs.size(); i++) {
+                String[] logDateParts = (storedLogs.get(i).getDate()).split(" ");
+                String logDay = logDateParts[0];
+                String logMonth = String.valueOf(CalendarUtils.getMonthInt(logDateParts[1]) + 1);
+                String logYear = logDateParts[2];
+
+                if (logMonth.length() == 1) {
+                    logMonth = "0" + logMonth;
+                }
+
+                if (isSameDate(calendarDay, calendarMonth, calendarYear, logDay, logMonth, logYear)) {
+                    holder.logCircle.setVisibility(View.VISIBLE);
+                }
+            }
+
             if (date.equals(CalendarUtils.selectedDate)) {
                 holder.parentView.setBackgroundColor(Color.LTGRAY); // When date is clicked turn background light gray
             }

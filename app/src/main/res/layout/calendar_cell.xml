@@ -27,7 +27,7 @@
         android:layout_height="7dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:background="#0E86D4"
+        android:background="@color/lightGreen"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
