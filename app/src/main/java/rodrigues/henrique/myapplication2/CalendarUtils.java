@@ -163,7 +163,7 @@ public class CalendarUtils {
         return null;
     }
     public static int getMonthInt(String month){
-        switch(month) {
+        switch(month.toUpperCase()) {
             case "JANUARY":
                 return 0;
             case "FEBRUARY":
@@ -202,13 +202,11 @@ public class CalendarUtils {
         // Loop through each day in calendar with cloned date
         Calendar currentDate = (Calendar) startDate.clone();
 
-        if (repeat) {
-            for(int i = 0; i < numberOfWeeks; i++) {
-                // Save date to array
-                dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH))));
-                // Move day to next day
-                currentDate.add(Calendar.DAY_OF_MONTH, 7);
-            }
+        for(int i = 0; i < numberOfWeeks; i++) {
+            // Save date to array
+            dates.add(formattedDated(LocalDate.of(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH))));
+            // Move day to next day
+            currentDate.add(Calendar.DAY_OF_MONTH, 7);
         }
         return dates;
     }

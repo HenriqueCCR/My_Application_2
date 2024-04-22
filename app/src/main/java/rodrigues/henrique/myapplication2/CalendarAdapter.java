@@ -1,5 +1,6 @@
 package rodrigues.henrique.myapplication2;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ //might need to change to just 'class'
     private final ArrayList<LocalDate> days;
     private final OnItemListener onItemListener;
+    private final Context context;
 
-    public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener) {
+    public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener, Context context) {
         this.days = days;
         this.onItemListener = onItemListener;
+        this.context = context;
     }
 
     @NonNull
@@ -40,11 +43,35 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         final LocalDate date = days.get(position);
+
         if (date == null){
             holder.dayOfMonth.setText("");
         }
         else{
+            String calendarDateString = date.toString();
+            String[] calendarDateParts = calendarDateString.split("-");
+            String calendarDay = calendarDateParts[2];
+            String calendarMonth = calendarDateParts[1];
+            String calendarYear = calendarDateParts[0];
+
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
+
+            ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(context);
+            for(int i = 0; i < storedEvents.size(); i++) {
+                String[] eventDateParts = (storedEvents.get(i).getDate()).split(" ");
+                String eventDay = eventDateParts[0];
+                String eventMonth = String.valueOf(CalendarUtils.getMonthInt(eventDateParts[1]) + 1);
+                String eventYear = eventDateParts[2];
+
+                if (eventMonth.length() == 1) {
+                    eventMonth = "0" + eventMonth;
+                }
+
+                if (isSameDate(calendarDay, calendarMonth, calendarYear, eventDay, eventMonth, eventYear)) {
+                    holder.eventCircle.setVisibility(View.VISIBLE);
+                }
+            }
+
             if (date.equals(CalendarUtils.selectedDate)) {
                 holder.parentView.setBackgroundColor(Color.LTGRAY); // When date is clicked turn background light gray
             }
@@ -58,5 +85,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>{ /
 
     public interface OnItemListener{
         void onItemClick(int position, LocalDate date);
+    }
+    private boolean isSameDate(String calendarDay, String calendarMonth, String calendarYear, String comparisonDay, String comparisonMonth, String comparisonYear) {
+        boolean check = Integer.parseInt(calendarDay)  == Integer.parseInt(comparisonDay) && Integer.parseInt(calendarMonth)  == Integer.parseInt(comparisonMonth) && Integer.parseInt(calendarYear)  == Integer.parseInt(comparisonYear);
+        return check;
     }
 }

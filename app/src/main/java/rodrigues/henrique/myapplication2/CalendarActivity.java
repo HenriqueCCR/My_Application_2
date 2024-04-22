@@ -30,8 +30,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
     private ListView logListView;
-    private Button deleteButton;
-    private Object chosenItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +38,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         Log.i("Activity Lifecycle","onCreate");
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
-
-        final Context context = this;
 
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,14 +57,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         monthYearText = findViewById(R.id.monthYearTextView);
         eventListView = findViewById(R.id.eventListView);
         logListView = findViewById(R.id.logListView);
-        deleteButton = findViewById(R.id.deleteButton);
     }
 
     protected void setMonthView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInMonthArray(CalendarUtils.selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(days,this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(days,this, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
