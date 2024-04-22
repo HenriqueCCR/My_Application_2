@@ -40,15 +40,12 @@ public class EventAdapter extends ArrayAdapter<Event> {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle button click
-                // You can access position or data related to this row here
                 String toast = "Deleted Event item: " + event.getName() + " " + event.getTime();
                 makeToast(toast);
 
-                // Assuming you have a method to remove the event from your data source
+                CalendarUtils.removeEvent(getContext(),event);
                 remove(event);
 
-                // Notify the adapter that the data set has changed
                 notifyDataSetChanged();
             }
         });

@@ -64,11 +64,6 @@ public class EventEditActivity extends AppCompatActivity {
             }
         });
 
-        if (repeatEvent) {
-
-        }
-
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

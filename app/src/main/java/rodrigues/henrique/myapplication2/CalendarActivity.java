@@ -32,8 +32,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private ListView logListView;
     private Button deleteButton;
     private Object chosenItem;
-    Toast t; // double check
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,34 +46,15 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                /*chosenItem = adapterView.getItemAtPosition(i);
-                Event event = (Event) chosenItem;
-
-                String toast = "Deleted Event item: " + event.getName() + " " + event.getTime();
-                makeToast(toast);
-
-                CalendarUtils.removeEvent(context, event);*/
                 setEventAdapter();
             }
         });
         logListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                chosenItem = adapterView.getItemAtPosition(i);
-                Logg log = (Logg) chosenItem;
-
-                String toast = "Deleted Log item: " + log.getName() + " " + log.getDistance() + " KM";
-                makeToast(toast);
-
-                CalendarUtils.removeLog(context, log);
                 setLogAdapter();
             }
         });
-    }
-    private void makeToast (String s) {
-        if (t != null) t.cancel();
-        t = Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT);
-        t.show();
     }
     protected  void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
