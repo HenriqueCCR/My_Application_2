@@ -91,38 +91,16 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/hourInputText"
-            android:layout_width="30dp"
+        <Button
+            android:id="@+id/timePickerButton"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/darkGray"
-            android:hint="00"
-            android:inputType="number"
-            android:maxLength="2"/>
-
-        <EditText
-            android:id="@+id/minuteInputText"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/darkGray"
-            android:hint="00"
-            android:inputType="number"
-            android:maxLength="2"/>
-
-        <EditText
-            android:id="@+id/secondInputText"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/darkGray"
-            android:hint="00"
-            android:inputType="number"
-            android:maxLength="2"/>
+            android:text="00:00:00"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:onClick="openTimePicker"
+            style="?android:spinnerStyle"/>
 
     </LinearLayout>
 
