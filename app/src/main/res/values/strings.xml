@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rodrigues, Henrique - Work</string>
+    <string name="app_name">TrackStar</string>
     <string name="openCalendarButton">Calendar</string>
     <string name="backArrow" translatable="false">&lt;-</string>
     <string name="forwardArrow" translatable="false">-></string>

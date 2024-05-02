@@ -39,7 +39,7 @@ public class EventEditActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapterItems;
     private String[] runItemsList;
     private String time;
-    private String chosenItem, chosenDay;
+    private String chosenItem;
     private Button saveButton;
     Button timeButton, repeatingEventButton;
     int hour, minute, numberOfRepeatWeeks;
@@ -84,6 +84,14 @@ public class EventEditActivity extends AppCompatActivity {
                     builder.setMessage("Please select a time for your run");
                     alertWindowButtons(builder);
                 }
+                else if (checkRepeatWeeksEmpty()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventEditActivity.this);
+
+                    builder.setCancelable(true);
+                    builder.setTitle("Number of weeks was not set!");
+                    builder.setMessage("Please set a number of weeks to repeat this event");
+                    alertWindowButtons(builder);
+                }
                 else{
                     saveEventAction(view);
                 }
@@ -107,13 +115,7 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         ArrayList<String> dates = new ArrayList<>();
-        try {
-            dates = CalendarUtils.getRepeatedDates(repeatEvent, Integer.parseInt(repeatWeeks.getText().toString())); // get dates Strings
-        }
-        catch (Exception e) {
-            dates = CalendarUtils.getRepeatedDates(repeatEvent, 1); // get dates Strings
-        }
-
+        dates = CalendarUtils.getRepeatedDates(repeatEvent, Integer.parseInt(repeatWeeks.getText().toString())); // get dates Strings
 
         // Need to create Try Catch for when user has clicked REPEAT but no boxes ticked
         String eventName = chosenItem;
@@ -203,6 +205,15 @@ public class EventEditActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+    private boolean checkRepeatWeeksEmpty(){
+        try{
+            Integer.parseInt(repeatWeeks.getText().toString());
+            return false;
+        }
+        catch(Exception e) {
+            return true;
+        }
     }
     private void makeToast (String s) {
         if (t != null) t.cancel();
