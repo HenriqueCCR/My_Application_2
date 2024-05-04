@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,24 +57,49 @@ public class LogEditActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (chosenItem == null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
+                try {
+                    time = hour + ":" + minute + ":" + second;
 
-                    builder.setCancelable(true);
-                    builder.setTitle("No Run was chosen!");
-                    builder.setMessage("Please select a Run");
-                    alertWindowButtons(builder);
+                    if (chosenItem == null) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
+
+                        builder.setCancelable(true);
+                        builder.setTitle("No Run was chosen!");
+                        builder.setMessage("Please select a Run");
+                        alertWindowButtons(builder);
+                        return;
+                    }
+                    if (chosenItem != null) {
+                        distance = Double.parseDouble(distanceText.getText().toString());
+                        if (distance == 0) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
+
+                            builder.setCancelable(true);
+                            builder.setTitle("Distance set to 0!");
+                            builder.setMessage("You did more work than that I'm sure, please enter a valid distance");
+                            alertWindowButtons(builder);
+                            return;
+                        }
+                    }
+                    if (time.equals("0:0:0")) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
+
+                        builder.setCancelable(true);
+                        builder.setTitle("Time is empty!");
+                        builder.setMessage("You're not faster than time, please enter a time");
+                        alertWindowButtons(builder);
+                    }
+                    else{
+                        saveLogAction(view);
+                    }
                 }
-                else if (distanceText == null) {
+                catch (Exception e){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LogEditActivity.this);
 
                     builder.setCancelable(true);
                     builder.setTitle("No distance was given!");
                     builder.setMessage("Please write a distance for your run");
                     alertWindowButtons(builder);
-                }
-                else{
-                    saveLogAction(view);
                 }
             }
         });
