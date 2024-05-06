@@ -97,20 +97,25 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
 
         eventListView.setAdapter(eventAdapter);
+
     }
 
     private void setLogAdapter() {
-        // Log class clashes with util Logs so changed it to Logg
         ArrayList<LogStrings> storedLogs = CalendarUtils.getStoredLogs(this);
 
         ArrayList<Logg> dailyLoggs = LogStrings.logsForDate(storedLogs, CalendarUtils.selectedDate);
+
         LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
+
         logListView.setAdapter(logAdapter);
+
+        //setContentView(R.layout.calendar);
     }
 
     public void newEventAction(View view) {
         startActivity(new Intent(this, EventEditActivity.class));
-        setEventAdapter();
+        //setEventAdapter();
+        //setMonthView();
     }
-    public void newLogAction(View view) { startActivity(new Intent(this, LogEditActivity.class)); setLogAdapter();}
+    public void newLogAction(View view) { startActivity(new Intent(this, LogEditActivity.class)); }
 }

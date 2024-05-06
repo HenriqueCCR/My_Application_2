@@ -115,7 +115,13 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         ArrayList<String> dates = new ArrayList<>();
-        dates = CalendarUtils.getRepeatedDates(repeatEvent, Integer.parseInt(repeatWeeks.getText().toString())); // get dates Strings
+        if(repeatEvent) {
+            dates = CalendarUtils.getRepeatedDates(repeatEvent, Integer.parseInt(repeatWeeks.getText().toString())); // get dates Strings
+        }
+        else {
+            dates = CalendarUtils.getRepeatedDates(repeatEvent, 1);
+        }
+
 
         // Need to create Try Catch for when user has clicked REPEAT but no boxes ticked
         String eventName = chosenItem;
@@ -208,7 +214,9 @@ public class EventEditActivity extends AppCompatActivity {
     }
     private boolean checkRepeatWeeksEmpty(){
         try{
-            Integer.parseInt(repeatWeeks.getText().toString());
+            if(repeatEvent) {
+                Integer.parseInt(repeatWeeks.getText().toString());
+            }
             return false;
         }
         catch(Exception e) {
