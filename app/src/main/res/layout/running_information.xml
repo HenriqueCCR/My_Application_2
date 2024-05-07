@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".RunningInformationActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,6 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:gravity="center">
 
@@ -25,7 +25,7 @@
             android:id="@+id/longDistanceInfoButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:onClick="openLongDistanceInfo"
+            android:onClick="openInfo"
             android:text="Long Distance"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -34,7 +34,7 @@
             android:id="@+id/mediumDistanceInfoButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:onClick="openMediumDistanceInfo"
+            android:onClick="openInfo"
             android:text="Medium Distance"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -43,17 +43,17 @@
             android:id="@+id/shortDistanceInfoButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:onClick="openShortDistanceInfo"
+            android:onClick="openInfo"
             android:text="Short Distance"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/hillProgressionInfoButton"
+            android:id="@+id/hillInfoButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:onClick="openHillProgressionInfo"
-            android:text="Hill Progression"
+            android:onClick="openInfo"
+            android:text="Hill"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -61,10 +61,33 @@
             android:id="@+id/tempoInfoButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:onClick="openTempoInfo"
+            android:onClick="openInfo"
             android:text="Tempo"
             android:textSize="25sp"
             android:textStyle="bold" />
+        <Button
+            android:id="@+id/progressionInfoButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="openInfo"
+            android:text="Progression"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/popupInfoWindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:visibility="invisible"/>
+
     </LinearLayout>
 
 </LinearLayout>

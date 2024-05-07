@@ -1,0 +1,5 @@
+HELLO THIS IS INFORMATION
+testing what the text will look like in the application
+This could prove to be good
+or perhaps bad
+I don't really know yet, either way it is just a test

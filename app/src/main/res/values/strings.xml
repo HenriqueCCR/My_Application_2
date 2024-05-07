@@ -11,6 +11,7 @@
     <string name="openInfoPageButton">Running Info</string>
     <string-array name="runTypes">
         <item>Long Distance</item>
+        <item>Medium Distance</item>
         <item>Short Distance</item>
         <item>Tempo</item>
         <item>Hill</item>
