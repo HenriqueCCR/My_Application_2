@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         Intent openCalendarIntent = new Intent(getApplicationContext(), CalendarActivity.class);
         startActivity(openCalendarIntent);
     }
+    public void openInfoPage(View view){
+        Intent openInfoPageIntent = new Intent(getApplicationContext(), RunningInformationActivity.class);
+        startActivity(openInfoPageIntent);
+    }
 
     @Override
     protected void onPause() {

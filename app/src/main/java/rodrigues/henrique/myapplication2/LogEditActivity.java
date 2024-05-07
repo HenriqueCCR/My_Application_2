@@ -33,8 +33,8 @@ public class LogEditActivity extends AppCompatActivity {
     private String[] runItemsList;
     private String time, chosenItem;
     private Button saveButton, timePickerButton;
-    double distance;
-    String hour, minute, second;
+    private double distance;
+    private String hour, minute, second;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

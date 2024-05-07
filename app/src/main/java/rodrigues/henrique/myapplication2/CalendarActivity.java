@@ -52,7 +52,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             }
         });
     }
-    protected  void initWidgets() {
+    protected void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTextView);
         eventListView = findViewById(R.id.eventListView);
