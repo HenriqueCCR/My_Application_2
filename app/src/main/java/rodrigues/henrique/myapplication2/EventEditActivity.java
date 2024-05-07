@@ -1,6 +1,8 @@
 package rodrigues.henrique.myapplication2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -8,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,6 +48,7 @@ public class EventEditActivity extends AppCompatActivity {
     int hour, minute, numberOfRepeatWeeks;
     boolean repeatEvent;
     Toast t; // double check
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +115,10 @@ public class EventEditActivity extends AppCompatActivity {
         timeButton = findViewById(R.id.timeButton);
         repeatingEventButton = findViewById(R.id.repeatEventButton);
         repeatEvent = false;
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void saveEventAction(View view) {
@@ -227,5 +235,13 @@ public class EventEditActivity extends AppCompatActivity {
         if (t != null) t.cancel();
         t = Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT);
         t.show();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context=".LogEditActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/returnButtonText"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginLeft="17dp"
             android:text="Time"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -96,7 +105,6 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="00:00:00"
-            android:layout_margin="10dp"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:onClick="openTimePicker"

@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context=".EventEditActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/returnButtonText"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

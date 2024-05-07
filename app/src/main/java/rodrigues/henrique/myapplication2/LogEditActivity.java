@@ -6,8 +6,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,8 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
 
@@ -35,6 +37,7 @@ public class LogEditActivity extends AppCompatActivity {
     private Button saveButton, timePickerButton;
     private double distance;
     private String hour, minute, second;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +122,10 @@ public class LogEditActivity extends AppCompatActivity {
         hour = "0";
         minute = "0";
         second = "0";
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void saveLogAction(View view) {
@@ -230,5 +237,13 @@ public class LogEditActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
