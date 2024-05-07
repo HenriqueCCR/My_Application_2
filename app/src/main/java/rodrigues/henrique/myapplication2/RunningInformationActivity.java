@@ -63,27 +63,27 @@ public class RunningInformationActivity extends AppCompatActivity {
         InputStream inputStream = null;
         if(view.getId() == R.id.longDistanceInfoButton) {
             // Create InputStream object
-            inputStream = this.getResources().openRawResource(R.raw.sample);
+            inputStream = this.getResources().openRawResource(R.raw.long_distance_info);
             windowTitle = longDistanceTitle;
         }
         else if(view.getId() == R.id.mediumDistanceInfoButton) {
-            inputStream = this.getResources().openRawResource(R.raw.other_sample);
+            inputStream = this.getResources().openRawResource(R.raw.medium_distance_info);
             windowTitle =  mediumDistanceTitle;
         }
         else if(view.getId() == R.id.shortDistanceInfoButton) {
-            inputStream = this.getResources().openRawResource(R.raw.other_sample);
+            inputStream = this.getResources().openRawResource(R.raw.short_distance_info);
             windowTitle =  shortDistanceTitle;
         }
         else if(view.getId() == R.id.hillInfoButton) {
-            inputStream = this.getResources().openRawResource(R.raw.other_sample);
+            inputStream = this.getResources().openRawResource(R.raw.hill_info);
             windowTitle =  hillTitle;
         }
         else if(view.getId() == R.id.tempoInfoButton) {
-            inputStream = this.getResources().openRawResource(R.raw.other_sample);
+            inputStream = this.getResources().openRawResource(R.raw.tempo_info);
             windowTitle =  tempoTitle;
         }
         else if(view.getId() == R.id.progressionInfoButton) {
-            inputStream = this.getResources().openRawResource(R.raw.other_sample);
+            inputStream = this.getResources().openRawResource(R.raw.progression_info);
             windowTitle =  progressionTitle;
         }
 

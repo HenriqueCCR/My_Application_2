@@ -1,3 +1,0 @@
-HELLO THIS IS OTHER INFORMATION
-Now we try a new text file to reduce the amount of code
-And increase re-usability
