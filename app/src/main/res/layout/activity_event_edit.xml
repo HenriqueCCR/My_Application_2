@@ -68,12 +68,12 @@
             android:id="@+id/selectedTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Time"
+            android:hint="Time 00:00"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textColor="@color/darkGray"/>
 
     </LinearLayout>
     <LinearLayout
