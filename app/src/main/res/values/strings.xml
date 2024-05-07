@@ -8,6 +8,7 @@
     <string name="newLogButtonText">Log Run</string>
     <string name="saveButtonText">Save</string>
     <string name="selectRun">Select Run</string>
+    <string name="openInfoPageButton">Running Info</string>
     <string-array name="runTypes">
         <item>Long Distance</item>
         <item>Short Distance</item>

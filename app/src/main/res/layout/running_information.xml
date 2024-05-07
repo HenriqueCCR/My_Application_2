@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".RunningInformationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/longDistanceInfoButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="openLongDistanceInfo"
+            android:text="Long Distance"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mediumDistanceInfoButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="openMediumDistanceInfo"
+            android:text="Medium Distance"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/shortDistanceInfoButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="openShortDistanceInfo"
+            android:text="Short Distance"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/hillProgressionInfoButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="openHillProgressionInfo"
+            android:text="Hill Progression"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/tempoInfoButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="openTempoInfo"
+            android:text="Tempo"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
