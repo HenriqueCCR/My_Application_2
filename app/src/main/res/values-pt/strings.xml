@@ -8,4 +8,5 @@
     <string name="saveButtonText">Salva</string>
     <string name="selectRun"> Escolha Corrida</string>
     <string name="openInfoPageButton">Info de Corrida</string>
+    <string name="returnButtonText">Voltar</string>
 </resources>

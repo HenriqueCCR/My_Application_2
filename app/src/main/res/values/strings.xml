@@ -9,6 +9,7 @@
     <string name="saveButtonText">Save</string>
     <string name="selectRun">Select Run</string>
     <string name="openInfoPageButton">Running Info</string>
+    <string name="returnButtonText">Return</string>
     <string-array name="runTypes">
         <item>Long Distance</item>
         <item>Medium Distance</item>

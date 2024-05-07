@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import io.reactivex.internal.operators.maybe.MaybeFromFuture;
-
 public class RunningInformationActivity extends AppCompatActivity {
     private Button longDistanceButton, mediumDistanceButton, shortDistanceButton, hillButton, tempoButton, progressionButton;
     public static TextView popupInfoWindowTextView;
@@ -109,7 +107,7 @@ public class RunningInformationActivity extends AppCompatActivity {
             }
         }
 
-        LongDistanceFragment dialogFragment = new LongDistanceFragment();
+        RunningInformationFragment dialogFragment = new RunningInformationFragment();
         dialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 }
