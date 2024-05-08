@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Rodrigues, Henrique - Work</string>
     <string name="openCalendarButton">Calendário</string>
     <string name="weeklyButtonText">Por Semana</string>
     <string name="newEventButtonText">Evento Novo</string>
@@ -9,4 +8,28 @@
     <string name="selectRun"> Escolha Corrida</string>
     <string name="openInfoPageButton">Info de Corrida</string>
     <string name="returnButtonText">Voltar</string>
+    <string name="longDistanceText">Longa Distância</string>
+    <string name="mediumDistanceText">Média Distância</string>
+    <string name="shortDistanceText">Curta Distância</string>
+    <string name="tempoText">Tempo</string>
+    <string name="hillText">Colina</string>
+    <string name="progressionText">Progressão</string>
+
+    <string-array name="runTypes">
+        <item>@string/longDistanceText</item>
+        <item>@string/mediumDistanceText</item>
+        <item>@string/shortDistanceText</item>
+        <item>@string/tempoText</item>
+        <item>@string/hillText</item>
+        <item>@string/progressionText</item>
+    </string-array>
+
+    <string-array name="runTypesTitles">
+        <item>Corrida de longa distância</item>
+        <item>Corrida de média distância</item>
+        <item>Corrida de curta distância</item>
+        <item>Corrida tempo</item>
+        <item>Corrida colina</item>
+        <item>Corrida de progressão</item>
+    </string-array>
 </resources>

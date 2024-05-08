@@ -186,7 +186,7 @@ public class EventEditActivity extends AppCompatActivity {
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, minute, true);
 
-        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.setTitle("Select Time of Day");
         timePickerDialog.show();
     }
 

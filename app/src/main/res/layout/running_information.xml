@@ -27,7 +27,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:onClick="openInfo"
-            android:text="Long Distance"
+            android:text="@string/longDistanceText"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:onClick="openInfo"
-            android:text="Medium Distance"
+            android:text="@string/mediumDistanceText"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:onClick="openInfo"
-            android:text="Short Distance"
+            android:text="@string/shortDistanceText"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:onClick="openInfo"
-            android:text="Hill"
+            android:text="@string/hillText"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:onClick="openInfo"
-            android:text="Tempo"
+            android:text="@string/tempoText"
             android:textSize="25sp"
             android:textStyle="bold" />
         <Button
@@ -71,7 +71,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:onClick="openInfo"
-            android:text="Progression"
+            android:text="@string/progressionText"
             android:textSize="25sp"
             android:textStyle="bold" />
     </LinearLayout>

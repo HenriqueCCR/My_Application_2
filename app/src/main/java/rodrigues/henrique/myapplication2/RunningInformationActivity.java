@@ -19,12 +19,7 @@ import java.io.InputStreamReader;
 public class RunningInformationActivity extends AppCompatActivity {
     private Button longDistanceButton, mediumDistanceButton, shortDistanceButton, hillButton, tempoButton, progressionButton;
     public static TextView popupInfoWindowTextView;
-    public String longDistanceTitle = "Long Distance Running";
-    public String mediumDistanceTitle = "Medium Distance Running";
-    public String shortDistanceTitle = "Short Distance Running";
-    public String hillTitle = "Hill Runs";
-    public String tempoTitle = "Tempo Runs";
-    public String progressionTitle = "Progression Runs";
+    public String longDistanceTitle, mediumDistanceTitle, shortDistanceTitle, tempoTitle, hillTitle, progressionTitle;
     public static String windowTitle;
     private Toolbar toolbar;
 
@@ -42,6 +37,13 @@ public class RunningInformationActivity extends AppCompatActivity {
         hillButton = findViewById(R.id.hillInfoButton);
         tempoButton = findViewById(R.id.tempoInfoButton);
         progressionButton = findViewById(R.id.progressionInfoButton);
+
+        longDistanceTitle = getResources().getStringArray(R.array.runTypesTitles)[0];
+        mediumDistanceTitle = getResources().getStringArray(R.array.runTypesTitles)[1];
+        shortDistanceTitle = getResources().getStringArray(R.array.runTypesTitles)[2];
+        tempoTitle = getResources().getStringArray(R.array.runTypesTitles)[3];
+        hillTitle = getResources().getStringArray(R.array.runTypesTitles)[4];
+        progressionTitle = getResources().getStringArray(R.array.runTypesTitles)[5];
 
         popupInfoWindowTextView = findViewById(R.id.popupInfoWindow);
 

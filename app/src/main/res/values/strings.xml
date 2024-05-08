@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrackStar</string>
+    <string name="app_name" translatable="false">TrackStar</string>
     <string name="openCalendarButton">Calendar</string>
     <string name="backArrow" translatable="false">&lt;-</string>
     <string name="forwardArrow" translatable="false">-></string>
@@ -10,12 +10,28 @@
     <string name="selectRun">Select Run</string>
     <string name="openInfoPageButton">Running Info</string>
     <string name="returnButtonText">Return</string>
+    <string name="longDistanceText">Long Distance</string>
+    <string name="mediumDistanceText">Medium Distance</string>
+    <string name="shortDistanceText">Short Distance</string>
+    <string name="tempoText">Tempo</string>
+    <string name="hillText">Hill</string>
+    <string name="progressionText">Progression</string>
+
     <string-array name="runTypes">
-        <item>Long Distance</item>
-        <item>Medium Distance</item>
-        <item>Short Distance</item>
-        <item>Tempo</item>
-        <item>Hill</item>
-        <item>Progression</item>
+        <item>@string/longDistanceText</item>
+        <item>@string/mediumDistanceText</item>
+        <item>@string/shortDistanceText</item>
+        <item>@string/tempoText</item>
+        <item>@string/hillText</item>
+        <item>@string/progressionText</item>
+    </string-array>
+
+    <string-array name="runTypesTitles">
+        <item>Long Distance Running</item>
+        <item>Medium Distance Running</item>
+        <item>Short Distance Running</item>
+        <item>Tempo Runs</item>
+        <item>Hill Runs</item>
+        <item>Progression Runs</item>
     </string-array>
 </resources>
