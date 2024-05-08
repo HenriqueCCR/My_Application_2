@@ -51,8 +51,4 @@ public class Event {
     public boolean getVisibility() {
         return visible;
     }
-
-    public void setVisibility(boolean visible) {
-        this.visible = visible;
-    }
 }

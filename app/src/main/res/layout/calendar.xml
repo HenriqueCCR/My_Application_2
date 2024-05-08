@@ -7,11 +7,18 @@
     android:orientation="vertical"
     tools:context=".CalendarActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/returnButtonText"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <Button
@@ -119,8 +126,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_height="400dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

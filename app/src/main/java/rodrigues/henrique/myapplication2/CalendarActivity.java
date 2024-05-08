@@ -3,7 +3,9 @@ package rodrigues.henrique.myapplication2;
 import static rodrigues.henrique.myapplication2.CalendarUtils.daysInMonthArray;
 import static rodrigues.henrique.myapplication2.CalendarUtils.monthYearFromDate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,9 +17,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,6 +36,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
     private ListView logListView;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +64,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         monthYearText = findViewById(R.id.monthYearTextView);
         eventListView = findViewById(R.id.eventListView);
         logListView = findViewById(R.id.logListView);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     protected void setMonthView() {
@@ -89,15 +100,16 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    public void setEventAdapter() {
+    public void setEventAdapter() { //Order events by time
         ArrayList<EventStrings> storedEvents = CalendarUtils.getStoredEvents(this);
 
         ArrayList<Event> dailyEvents = EventStrings.eventsForDate(storedEvents, CalendarUtils.selectedDate);
 
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
 
-        eventListView.setAdapter(eventAdapter);
+        sortItemsByTime(dailyEvents);
 
+        eventListView.setAdapter(eventAdapter);
     }
 
     private void setLogAdapter() {
@@ -108,14 +120,33 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         LogAdapter logAdapter = new LogAdapter(getApplicationContext(), dailyLoggs);
 
         logListView.setAdapter(logAdapter);
-
-        //setContentView(R.layout.calendar);
     }
 
     public void newEventAction(View view) {
         startActivity(new Intent(this, EventEditActivity.class));
-        //setEventAdapter();
-        //setMonthView();
     }
     public void newLogAction(View view) { startActivity(new Intent(this, LogEditActivity.class)); }
+
+    public static void sortItemsByTime(ArrayList<Event> itemsList) {
+        Collections.sort(itemsList, new Comparator<Event>() {
+            @Override
+            public int compare(Event event1, Event event2) {
+                // Parsing time string into LocalTime to compare
+
+                LocalTime time1 = LocalTime.parse(event1.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
+                LocalTime time2 = LocalTime.parse(event2.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
+
+                //compare the times
+                return time1.compareTo(time2);
+            }
+        });
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
